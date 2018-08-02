@@ -2,21 +2,31 @@
 
 # Erick:
 Logging
+
 Product Flavors
+
 Facade for libraries
 
 # Kevin:
 Networking 
+
 Build variants
+
 Facade for libraries
 
+
 Room 
+
 Paging Library
+
 
 # Screens: (Anil to create wireframes)
 Search screen ("Keyword" entry field and Search button)
+
 List View (Shows the details of the search results)
+
 Details View (Shows details of the selected event and an additional "Weather" tile)
+
 
 M V VM 
 
