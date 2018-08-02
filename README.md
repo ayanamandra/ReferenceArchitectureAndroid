@@ -31,8 +31,11 @@ https://developer.android.com/jetpack/
 
 # Ticketmaster API details:
 Consumer Key	Ctl1pftvJYMyVJVycySAlLNDVhRMGBMb
+
 Consumer Secret	MKhaUOFNKPQfTz29
+
 Key Issued	Wed, 08/01/2018 - 19:32
+
 Key Expires	Never
 
 # Weather API:
