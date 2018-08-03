@@ -3,6 +3,9 @@ package com.prokarma.reference.architecture;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
+/**
+ * A view model for search related support.
+ */
 public class SearchViewModel extends ViewModel {
 
     private final String TAG = "SearchViewModel";
