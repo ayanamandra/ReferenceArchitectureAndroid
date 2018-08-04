@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Reference Architecture</string>
+    <string name="app_name">Event Browser</string>
+
+    <!-- Application UI -->
+    <string name="search_button_text">Search</string>
+    <string name="sample_search_query">Ex: Frozen</string>
 </resources>
