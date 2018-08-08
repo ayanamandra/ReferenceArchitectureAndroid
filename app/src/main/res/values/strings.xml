@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">Event Browser</string>
+    <string name="app_name">Event Master</string>
 
     <!-- Application UI -->
-    <string name="search_button_text">Search</string>
-    <string name="sample_search_query">Ex: Frozen</string>
+    <string name="search_button_text">Find Events</string>
+    <string name="sample_search_query">Denver, CO</string>
+    <string name="sample_search_keyword">Eminem</string>
+    <string name="search_query_hint">Location (optional)</string>
+    <string name="search_keyword_hint">Keyword</string>
 </resources>
