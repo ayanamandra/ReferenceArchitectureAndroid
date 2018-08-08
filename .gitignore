@@ -10,8 +10,8 @@
 /captures
 .externalNativeBuild
 
-.idea/codeStyles/*
-.idea/inspectionProfiles/*
+.idea/codeStyles/
+.idea/inspectionProfiles/
 
 # Created by https://www.gitignore.io/api/androidstudio
 
