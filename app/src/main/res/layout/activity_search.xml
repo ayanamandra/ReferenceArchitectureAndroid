@@ -70,17 +70,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/button_vertical_margin"
-            android:paddingTop="@dimen/button_vertical_padding"
-            android:paddingBottom="@dimen/button_vertical_padding"
-            android:paddingStart="@dimen/button_horizontal_padding"
-            android:paddingEnd="@dimen/button_horizontal_padding"
+            style="@style/actionButton"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_query_layout"
 
             android:onClick="@{() -> searchViewModel.search()}"
-            android:text="@string/search_button_text"
-            android:textColor="@android:color/white"
-            android:background="@color/colorPrimary"/>
+            android:text="@string/search_button_text"/>
     </android.support.constraint.ConstraintLayout>
 </layout>
