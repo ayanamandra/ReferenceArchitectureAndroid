@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SearchActivity">
+
+    <data>
+    <variable name="searchViewModel"
+        type="com.prokarma.reference.architecture.SearchViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/search_keyword_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintBottom_toTopOf="@id/search_query_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            android:layout_marginBottom="@dimen/search_field_vertical_margin">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/search_keyword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/search_field_horizontal_margin"
+                android:layout_marginEnd="@dimen/search_field_horizontal_margin"
+
+                android:ems="10"
+                android:hint="@string/search_keyword_hint"
+                android:inputType="text"
+                android:text="@={searchViewModel.searchKeyword}"
+                tools:text="@string/sample_search_keyword"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/search_query_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/search_query"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/search_field_horizontal_margin"
+                android:layout_marginEnd="@dimen/search_field_horizontal_margin"
+
+                android:ems="10"
+                android:hint="@string/search_query_hint"
+                android:inputType="text"
+                android:text="@={searchViewModel.searchQuery}"
+                tools:text="@string/sample_search_query"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/button_vertical_margin"
+            android:paddingTop="@dimen/button_vertical_padding"
+            android:paddingBottom="@dimen/button_vertical_padding"
+            android:paddingStart="@dimen/button_horizontal_padding"
+            android:paddingEnd="@dimen/button_horizontal_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_query_layout"
+
+            android:onClick="@{() -> searchViewModel.search()}"
+            android:text="@string/search_button_text"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"/>
+    </android.support.constraint.ConstraintLayout>
+</layout>
