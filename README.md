@@ -29,12 +29,12 @@ https://stackoverflow.com/questions/46312937/when-to-use-rxjava-in-android-and-w
 
 
 ## References
-https://developer.android.com/topic/libraries/architecture/
-https://developer.android.com/jetpack/docs/guide
-https://developer.android.com/jetpack/
-https://android.jlelse.eu/weighing-in-on-the-holy-architecture-war-my-take-on-architecture-components-31f7025e9c66
-https://proandroiddev.com/mvvm-architecture-using-livedata-rxjava-and-new-dagger-android-injection-639837b1eb6c
-https://medium.com/@nicolas.duponchel/testing-viewmodel-in-mvvm-using-livedata-and-rxjava-b27878495220
+* https://developer.android.com/topic/libraries/architecture/
+* https://developer.android.com/jetpack/docs/guide
+* https://developer.android.com/jetpack/
+* https://android.jlelse.eu/weighing-in-on-the-holy-architecture-war-my-take-on-architecture-components-31f7025e9c66
+* https://proandroiddev.com/mvvm-architecture-using-livedata-rxjava-and-new-dagger-android-injection-639837b1eb6c
+* https://medium.com/@nicolas.duponchel/testing-viewmodel-in-mvvm-using-livedata-and-rxjava-b27878495220
 
 
 ## Ticketmaster API Details
