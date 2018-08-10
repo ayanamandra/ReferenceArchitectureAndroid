@@ -13,4 +13,16 @@ public class SearchEventsResponse {
     @SerializedName("page")
     @Expose
     public Page page;
+
+    public Embedded getEmbedded() {
+        return embedded;
+    }
+
+    public Links getLinks() {
+        return links;
+    }
+
+    public Page getPage() {
+        return page;
+    }
 }

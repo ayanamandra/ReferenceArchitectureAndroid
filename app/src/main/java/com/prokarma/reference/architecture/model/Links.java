@@ -16,4 +16,20 @@ public class Links {
     @SerializedName("last")
     @Expose
     public Link last;
+
+    public Link getFirst() {
+        return first;
+    }
+
+    public Link getSelf() {
+        return self;
+    }
+
+    public Link getNext() {
+        return next;
+    }
+
+    public Link getLast() {
+        return last;
+    }
 }

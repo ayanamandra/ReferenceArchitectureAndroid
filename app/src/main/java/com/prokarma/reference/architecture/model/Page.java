@@ -16,4 +16,20 @@ public class Page {
     @SerializedName("number")
     @Expose
     public Integer number;
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public Integer getTotalElements() {
+        return totalElements;
+    }
+
+    public Integer getTotalPages() {
+        return totalPages;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
 }
