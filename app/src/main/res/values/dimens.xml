@@ -13,5 +13,4 @@
     <dimen name="view_margin_small">8dp</dimen>
     <dimen name="location_icon_size">10dp</dimen>
     <dimen name="match_constraint">0dp</dimen>
-    <dimen name="match_constraint">0dp</dimen>
 </resources>
