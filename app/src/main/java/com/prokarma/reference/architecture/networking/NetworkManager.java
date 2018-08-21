@@ -1,9 +1,12 @@
 package com.prokarma.reference.architecture.networking;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -34,6 +37,7 @@ public class NetworkManager {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(TICKETMASTER_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(client)
                     .build();
 
@@ -51,7 +55,7 @@ public class NetworkManager {
         return service != null;
     }
 
-    public Call<SearchEventsResponse> getEvents() {
+    public Single<SearchEventsResponse> getEvents() {
         return service.getEvents(TICKETMASTER_URL, API_KEY);
     }
 }

@@ -2,6 +2,8 @@ package com.prokarma.reference.architecture.networking;
 
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -12,5 +14,5 @@ public interface RESTService {
     String API_KEY = "apikey";
 
     @GET
-    Call<SearchEventsResponse> getEvents(@Url String url, @Query(API_KEY) String apikey);
+    Single<SearchEventsResponse> getEvents(@Url String url, @Query(API_KEY) String apikey);
 }
