@@ -19,10 +19,6 @@ public class SearchActivity extends AppCompatActivity {
         final SearchViewModel viewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
         activityBinding.setSearchViewModel(viewModel);
 
-        // Get the ViewModel.
-        SearchViewModel mModel = ViewModelProviders.of(this).get(SearchViewModel.class);
-
-
         // Create the observer which updates the UI.
         final Observer<String> numberOfEventsObserver = new Observer<String>() {
             @Override
@@ -33,6 +29,6 @@ public class SearchActivity extends AppCompatActivity {
         };
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        mModel.getNumberOfEvents().observe(this, numberOfEventsObserver);
+        viewModel.getNumberOfEvents().observe(this, numberOfEventsObserver);
     }
 }

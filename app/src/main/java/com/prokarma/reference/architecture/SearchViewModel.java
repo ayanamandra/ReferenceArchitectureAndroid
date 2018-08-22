@@ -45,17 +45,6 @@ public class SearchViewModel extends ViewModel {
     public void search() {
         Log.d(TAG, "Search event triggered: query = " + mSearchQuery + " keyword: " + mSearchKeyword);
         NetworkAbstractionLayer.getSearchEvents(this, mSearchKeyword);
-//        NetworkManager.getInstance().getEvents().enqueue(new Callback<SearchEventsResponse>() {
-//            @Override
-//            public void onResponse(Call<SearchEventsResponse> call, Response<SearchEventsResponse> response) {
-//                Log.e(TAG, "Search Events found: " + response.body().getPage().getTotalElements());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<SearchEventsResponse> call, Throwable t) {
-//                Log.e(TAG, t.getLocalizedMessage());
-//            }
-//        });
     }
     //endregion
 

@@ -32,9 +32,6 @@ public class NetworkAbstractionLayer {
     }
 
     public static void getSearchEvents(final SearchViewModel viewModel, String keyword) {
-        // Get the ViewModel.
-        //mModel = ViewModelProviders.of(this).get(SearchViewModel.class);
-
         NetworkManager.getInstance().getEvents(keyword)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
