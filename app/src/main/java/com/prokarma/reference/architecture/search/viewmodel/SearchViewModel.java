@@ -1,4 +1,4 @@
-package com.prokarma.reference.architecture;
+package com.prokarma.reference.architecture.search.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;

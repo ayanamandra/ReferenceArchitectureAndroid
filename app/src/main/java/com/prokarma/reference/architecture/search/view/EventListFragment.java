@@ -1,4 +1,4 @@
-package com.prokarma.reference.architecture.search;
+package com.prokarma.reference.architecture.search.view;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -11,9 +11,10 @@ import com.prokarma.reference.architecture.R;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class EventListActivityFragment extends Fragment {
+public class EventListFragment extends Fragment {
 
-    public EventListActivityFragment() {
+    public EventListFragment() {
+
     }
 
     @Override
