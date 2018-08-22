@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
+import com.prokarma.reference.architecture.networking.NetworkAbstractionLayer;
 import com.prokarma.reference.architecture.networking.NetworkManager;
 
 import io.reactivex.Scheduler;
@@ -41,21 +42,6 @@ public class SearchViewModel extends ViewModel {
      */
     public void search() {
         Log.d(TAG, "Search event triggered: query = " + mSearchQuery + " keyword: " + mSearchKeyword);
-
-        NetworkManager.getInstance().getEvents()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<SearchEventsResponse>() {
-                    @Override
-                    public void onSuccess(SearchEventsResponse searchEventsResponse) {
-                        Log.e(TAG, "Search Events found: " + searchEventsResponse.getPage().getTotalElements());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, e.getLocalizedMessage());
-                    }
-                });
 
 //        NetworkManager.getInstance().getEvents().enqueue(new Callback<SearchEventsResponse>() {
 //            @Override
