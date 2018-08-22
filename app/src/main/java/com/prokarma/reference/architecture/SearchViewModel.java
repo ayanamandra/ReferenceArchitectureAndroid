@@ -1,5 +1,6 @@
 package com.prokarma.reference.architecture;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class SearchViewModel extends ViewModel {
     //region Instance variables
     private String mSearchQuery;
     private String mSearchKeyword;
+    private MutableLiveData<String> mNumberOfEvents;
     //endregion
 
     //region Constructors
@@ -42,7 +44,7 @@ public class SearchViewModel extends ViewModel {
      */
     public void search() {
         Log.d(TAG, "Search event triggered: query = " + mSearchQuery + " keyword: " + mSearchKeyword);
-
+        NetworkAbstractionLayer.getSearchEvents(this, mSearchKeyword);
 //        NetworkManager.getInstance().getEvents().enqueue(new Callback<SearchEventsResponse>() {
 //            @Override
 //            public void onResponse(Call<SearchEventsResponse> call, Response<SearchEventsResponse> response) {
@@ -73,5 +75,15 @@ public class SearchViewModel extends ViewModel {
     public void setSearchKeyword(String searchKeyword) {
         mSearchKeyword = searchKeyword;
     }
+
+    // Create a LiveData with a String
+
+    public MutableLiveData<String> getNumberOfEvents() {
+        if (mNumberOfEvents == null) {
+            mNumberOfEvents = new MutableLiveData<String>();
+        }
+        return mNumberOfEvents;
+    }
+
     //endregion
 }
