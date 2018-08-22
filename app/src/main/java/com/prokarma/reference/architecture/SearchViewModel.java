@@ -20,7 +20,7 @@ import retrofit2.Response;
 /**
  * A view model for search related support.
  */
-public class SearchViewModel extends ViewModel {
+public class SearchViewModel extends ViewModel implements SearchInterface {
 
     private final String TAG = "SearchViewModel";
 
@@ -72,6 +72,11 @@ public class SearchViewModel extends ViewModel {
             mNumberOfEvents = new MutableLiveData<String>();
         }
         return mNumberOfEvents;
+    }
+
+    @Override
+    public void updateValue(String newValue) {
+        getNumberOfEvents().postValue(newValue);
     }
 
     //endregion
