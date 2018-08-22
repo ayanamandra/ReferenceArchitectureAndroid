@@ -1,6 +1,8 @@
 package com.prokarma.reference.architecture;
 
+import com.prokarma.reference.architecture.model.SearchEventsResponse;
+
 public interface SearchInterface {
 
-    void updateValue(String newValue);
+    void updateValue(SearchEventsResponse searchEventsResponse);
 }
