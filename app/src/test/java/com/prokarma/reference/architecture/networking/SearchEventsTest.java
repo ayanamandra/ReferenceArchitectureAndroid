@@ -10,6 +10,8 @@ import org.junit.rules.Timeout;
 
 import java.io.IOException;
 
+import io.reactivex.Single;
+import io.reactivex.observers.TestObserver;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -24,26 +26,15 @@ public class SearchEventsTest {
         searchEvents();
     }
 
-    private SearchEventsResponse searchEvents(){
-        Call<SearchEventsResponse> call = NetworkManager.getInstance().getEvents();
+    private SearchEventsResponse searchEvents() {
+        Single<SearchEventsResponse> call = NetworkManager.getInstance().getEvents();
 
-        try {
-            Response<SearchEventsResponse> response = call.execute();
-            Assert.assertNotNull(response);
-            Assert.assertTrue(response.isSuccessful());
-            Assert.assertNotNull(response.body());
-            Assert.assertNotNull(response.body().getPage());
-            Assert.assertNotNull(response.body().getEmbedded());
-            Assert.assertNotNull(response.body().getLinks());
-
-            SearchEventsResponse updateResponse = response.body();
-            Assert.assertNotNull(updateResponse);
-            return updateResponse;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Assert.fail(e.toString());
-            return null;
-        }
+        SearchEventsResponse response = call.blockingGet();
+        Assert.assertNotNull(response);
+        Assert.assertNotNull(response.getPage());
+        Assert.assertNotNull(response.getEmbedded());
+        Assert.assertNotNull(response.getLinks());
+        return response;
     }
 
 }
