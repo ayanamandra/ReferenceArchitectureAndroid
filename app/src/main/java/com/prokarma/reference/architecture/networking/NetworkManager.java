@@ -58,4 +58,8 @@ public class NetworkManager {
     public Single<SearchEventsResponse> getEvents() {
         return service.getEvents(TICKETMASTER_URL, API_KEY);
     }
+
+    public Single<SearchEventsResponse> getEvents(String keyword) {
+        return service.getEvents(TICKETMASTER_URL, API_KEY, keyword);
+    }
 }

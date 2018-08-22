@@ -12,7 +12,11 @@ import retrofit2.http.Url;
 
 public interface RESTService {
     String API_KEY = "apikey";
+    String QUERY_KEYWORD = "keyword";
 
     @GET
     Single<SearchEventsResponse> getEvents(@Url String url, @Query(API_KEY) String apikey);
+
+    @GET
+    Single<SearchEventsResponse> getEvents(@Url String url, @Query(API_KEY) String apikey, @Query(QUERY_KEYWORD) String keyword);
 }

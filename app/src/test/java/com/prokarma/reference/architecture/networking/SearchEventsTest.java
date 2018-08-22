@@ -24,10 +24,22 @@ public class SearchEventsTest {
     public void getEvents() {
         TestUtil.setupEnvironment();
         searchEvents();
+        searchEvents("NHL");
     }
 
     private SearchEventsResponse searchEvents() {
         Single<SearchEventsResponse> call = NetworkManager.getInstance().getEvents();
+
+        SearchEventsResponse response = call.blockingGet();
+        Assert.assertNotNull(response);
+        Assert.assertNotNull(response.getPage());
+        Assert.assertNotNull(response.getEmbedded());
+        Assert.assertNotNull(response.getLinks());
+        return response;
+    }
+
+    private SearchEventsResponse searchEvents(String keyword) {
+        Single<SearchEventsResponse> call = NetworkManager.getInstance().getEvents(keyword);
 
         SearchEventsResponse response = call.blockingGet();
         Assert.assertNotNull(response);
