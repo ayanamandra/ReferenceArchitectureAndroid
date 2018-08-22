@@ -11,12 +11,13 @@ import android.os.Bundle;
 
 
 public class SearchActivity extends AppCompatActivity {
+    private SearchViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final ActivitySearchBinding activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_search);
-        final SearchViewModel viewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
         activityBinding.setSearchViewModel(viewModel);
 
         // Create the observer which updates the UI.
@@ -30,5 +31,14 @@ public class SearchActivity extends AppCompatActivity {
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         viewModel.getNumberOfEvents().observe(this, numberOfEventsObserver);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (viewModel != null && viewModel.getNumberOfEvents().hasActiveObservers()) {
+            viewModel.getNumberOfEvents().removeObservers(this);
+        }
+
+        super.onDestroy();
     }
 }
