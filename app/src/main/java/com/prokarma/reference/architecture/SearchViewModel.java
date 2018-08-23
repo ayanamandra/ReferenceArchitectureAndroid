@@ -79,5 +79,10 @@ public class SearchViewModel extends ViewModel implements SearchInterface {
         getNumberOfEvents().postValue(searchEventsResponse.getPage().getTotalElements().toString());
     }
 
+    @Override
+    public void onSearchFailed(Throwable throwable) {
+        getNumberOfEvents().postValue(throwable.getLocalizedMessage());
+    }
+
     //endregion
 }

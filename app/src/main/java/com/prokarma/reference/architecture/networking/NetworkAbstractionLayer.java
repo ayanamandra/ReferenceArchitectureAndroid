@@ -44,8 +44,11 @@ public class NetworkAbstractionLayer {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, e.getLocalizedMessage());
+                    public void onError(Throwable throwable) {
+                        Log.e(TAG, throwable.getLocalizedMessage());
+                        if (searchInterface != null){
+                            searchInterface.onSearchFailed(throwable);
+                        }
                     }
                 });
     }
