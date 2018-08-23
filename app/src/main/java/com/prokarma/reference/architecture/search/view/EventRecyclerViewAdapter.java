@@ -1,49 +1,60 @@
 package com.prokarma.reference.architecture.search.view;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
+import android.support.v7.recyclerview.extensions.ListAdapter;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import com.prokarma.reference.architecture.databinding.ItemEventListBinding;
+import com.prokarma.reference.architecture.model.Event;
 
 /**
  * WIP
  */
 public class EventRecyclerViewAdapter
-        extends RecyclerView.Adapter<EventRecyclerViewAdapter.ViewHolder> {
+        extends ListAdapter<Event, EventRecyclerViewAdapter.EventViewHolder> {
+
+    protected EventRecyclerViewAdapter(@NonNull DiffUtil.ItemCallback<Event> diffCallback) {
+        super(diffCallback);
+    }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        // TODO: WIP
-        return null;
+        ItemEventListBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(parent.getContext()), viewType, parent, false);
+
+        return new EventViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //TODO: WIP
+    public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
+        holder.bind(getItem(position));
     }
 
-    @Override
-    public int getItemCount() {
-        // TODO: WIP
-        return 0;
-    }
+    static class EventViewHolder extends RecyclerView.ViewHolder {
 
-    class ViewHolder extends RecyclerView.ViewHolder{
-
-        TextView mTitleView;
-        TextView mLocationView;
-        TextView mDateView;
-        ImageView mThumbnailView;
+        @NonNull
+        private final ItemEventListBinding mViewBinding;
 
 
-        ViewHolder(View view) {
-            super(view);
+        EventViewHolder(@NonNull ItemEventListBinding viewBinding) {
+            super(viewBinding.getRoot());
+            mViewBinding = viewBinding;
             //TODO: WIP
+        }
 
+        void bind(Event event) {
+            mViewBinding.setEvent(event);
+            //TODO: WIP
+            mViewBinding.executePendingBindings();
         }
     }
+
+    //TODO DiffUtil
 }
