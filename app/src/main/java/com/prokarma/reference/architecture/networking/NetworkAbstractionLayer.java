@@ -39,7 +39,7 @@ public class NetworkAbstractionLayer {
                     public void onSuccess(SearchEventsResponse searchEventsResponse) {
                         Log.e(TAG, "Search Events found: " + searchEventsResponse.getPage().getTotalElements());
                         if (searchInterface != null){
-                            searchInterface.updateValue(searchEventsResponse);
+                            searchInterface.onSearchCompleted(searchEventsResponse);
                         }
                     }
 

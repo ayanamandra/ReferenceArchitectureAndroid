@@ -75,7 +75,7 @@ public class SearchViewModel extends ViewModel implements SearchInterface {
     }
 
     @Override
-    public void updateValue(final SearchEventsResponse searchEventsResponse) {
+    public void onSearchCompleted(final SearchEventsResponse searchEventsResponse) {
         getNumberOfEvents().postValue(searchEventsResponse.getPage().getTotalElements().toString());
     }
 
