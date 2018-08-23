@@ -18,10 +18,6 @@ public class NetworkManager {
     private static OkHttpClient.Builder httpClient = null;
     public OkHttpClient client;
 
-    private static final String API_KEY = "Ctl1pftvJYMyVJVycySAlLNDVhRMGBMb";
-    private static final String TICKETMASTER_BASE_URL = "https://app.ticketmaster.com/";
-    private static final String TICKETMASTER_URL = "https://app.ticketmaster.com/discovery/v2/events.json";
-
     public static NetworkManager getInstance() {
         if (null == instance) {
             instance = new NetworkManager();
@@ -35,7 +31,7 @@ public class NetworkManager {
             client = httpClient.build();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(TICKETMASTER_BASE_URL)
+                    .baseUrl(TicketMasterManager.TICKETMASTER_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(client)
@@ -56,10 +52,10 @@ public class NetworkManager {
     }
 
     public Single<SearchEventsResponse> getEvents() {
-        return service.getEvents(TICKETMASTER_URL, API_KEY);
+        return TicketMasterManager.getEvents(service);
     }
 
     public Single<SearchEventsResponse> getEvents(String keyword) {
-        return service.getEvents(TICKETMASTER_URL, API_KEY, keyword);
+        return TicketMasterManager.getEvents(service, keyword);
     }
 }
