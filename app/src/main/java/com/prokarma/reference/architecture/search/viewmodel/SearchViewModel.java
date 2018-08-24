@@ -3,19 +3,10 @@ package com.prokarma.reference.architecture.search.viewmodel;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 import com.prokarma.reference.architecture.networking.NetworkAbstractionLayer;
-import com.prokarma.reference.architecture.networking.NetworkManager;
-
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.prokarma.reference.architecture.search.SearchInterface;
 
 /**
  * A view model for search related support.
