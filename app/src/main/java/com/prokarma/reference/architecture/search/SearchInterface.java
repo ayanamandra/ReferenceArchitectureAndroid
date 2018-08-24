@@ -1,4 +1,4 @@
-package com.prokarma.reference.architecture;
+package com.prokarma.reference.architecture.search;
 
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 

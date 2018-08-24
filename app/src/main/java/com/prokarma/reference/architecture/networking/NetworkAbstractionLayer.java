@@ -3,7 +3,7 @@ package com.prokarma.reference.architecture.networking;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.prokarma.reference.architecture.SearchInterface;
+import com.prokarma.reference.architecture.search.SearchInterface;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
