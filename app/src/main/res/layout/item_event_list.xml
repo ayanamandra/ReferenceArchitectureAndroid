@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="event"
+            type="com.prokarma.reference.architecture.model.Event" />
+
+        <variable
+            name="eventListener"
+            type="com.prokarma.reference.architecture.search.view.EventActions" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> eventListener.openEventDetail(event.id)}"
+        android:padding="@dimen/view_group_padding_all">
+
+        <ImageView
+            android:id="@+id/iv_event_image"
+            android:layout_width="@dimen/event_thumbnail_size"
+            android:layout_height="@dimen/event_thumbnail_size"
+            android:contentDescription="@string/content_description_decoration"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:color/holo_purple" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_event_details"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/view_group_margin_small"
+            android:layout_marginStart="@dimen/view_group_margin_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_event_date"
+            app:layout_constraintStart_toEndOf="@+id/iv_event_image"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_event_location"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/view_margin_small"
+                android:layout_marginTop="@dimen/view_margin_small"
+                android:maxLines="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_location_icon"
+                app:layout_constraintTop_toBottomOf="@+id/tv_event_title"
+                android:text="@{event.locale}"
+                tools:text="@string/sample_event_location" />
+
+            <ImageView
+                android:id="@+id/iv_location_icon"
+                android:layout_width="@dimen/location_icon_size"
+                android:layout_height="@dimen/location_icon_size"
+                android:layout_marginTop="@dimen/view_margin_small"
+                android:contentDescription="@string/content_description_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_event_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_event_title"
+                app:srcCompat="@android:color/holo_green_light" />
+
+            <TextView
+                android:id="@+id/tv_event_title"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textStyle="bold"
+                android:text="@{event.name}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/sample_event_title" />
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_event_date"
+            android:layout_width="@dimen/event_date_width"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="@{event.dates.start.localDate}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/sample_event_date" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

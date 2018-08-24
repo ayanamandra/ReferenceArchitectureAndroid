@@ -1,6 +1,8 @@
-package com.prokarma.reference.architecture;
+package com.prokarma.reference.architecture.search.view;
 
+import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.databinding.ActivitySearchBinding;
+import com.prokarma.reference.architecture.search.viewmodel.SearchViewModel;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;

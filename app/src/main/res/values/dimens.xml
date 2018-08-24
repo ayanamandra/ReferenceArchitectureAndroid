@@ -5,4 +5,12 @@
     <dimen name="button_vertical_margin">32dp</dimen>
     <dimen name="search_field_horizontal_margin">32dp</dimen>
     <dimen name="search_field_vertical_margin">32dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="event_thumbnail_size">40dp</dimen>
+    <dimen name="event_date_width">64dp</dimen>
+    <dimen name="view_group_padding_all">16dp</dimen>
+    <dimen name="view_group_margin_small">8dp</dimen>
+    <dimen name="view_margin_small">8dp</dimen>
+    <dimen name="location_icon_size">10dp</dimen>
+    <dimen name="match_constraint">0dp</dimen>
 </resources>
