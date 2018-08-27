@@ -35,7 +35,7 @@ public class SearchViewModel extends ViewModel implements NetworkInterface {
      */
     public void search() {
         Log.d(TAG, "Search event triggered: query = " + mSearchQuery + " keyword: " + mSearchKeyword);
-        NetworkAbstractionLayer.getSearchEvents(this, mSearchKeyword);
+        NetworkAbstractionLayer.getSearchEventsNoRxJava(this, mSearchKeyword);
     }
     //endregion
 

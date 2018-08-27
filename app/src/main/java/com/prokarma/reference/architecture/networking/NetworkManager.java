@@ -5,7 +5,6 @@ import com.prokarma.reference.architecture.model.SearchEventsResponse;
 
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -57,5 +56,9 @@ public class NetworkManager {
 
     public Single<SearchEventsResponse> getEvents(String keyword) {
         return TicketMasterManager.getEvents(service, keyword);
+    }
+
+    public Call<SearchEventsResponse> getEventsNoRxJava(String keyword) {
+        return TicketMasterManager.getEventsNoRxJava(service, keyword);
     }
 }
