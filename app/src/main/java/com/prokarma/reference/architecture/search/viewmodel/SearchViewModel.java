@@ -6,12 +6,12 @@ import android.util.Log;
 
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 import com.prokarma.reference.architecture.networking.NetworkAbstractionLayer;
-import com.prokarma.reference.architecture.search.SearchInterface;
+import com.prokarma.reference.architecture.networking.NetworkInterface;
 
 /**
  * A view model for search related support.
  */
-public class SearchViewModel extends ViewModel implements SearchInterface {
+public class SearchViewModel extends ViewModel implements NetworkInterface {
 
     private final String TAG = "SearchViewModel";
 
@@ -66,12 +66,12 @@ public class SearchViewModel extends ViewModel implements SearchInterface {
     }
 
     @Override
-    public void onSearchCompleted(final SearchEventsResponse searchEventsResponse) {
-        getNumberOfEvents().postValue(searchEventsResponse.getPage().getTotalElements().toString());
+    public void onCallCompleted(Object model) {
+        getNumberOfEvents().postValue(((SearchEventsResponse) model).getPage().getTotalElements().toString());
     }
 
     @Override
-    public void onSearchFailed(Throwable throwable) {
+    public void onCallFailed(Throwable throwable) {
         getNumberOfEvents().postValue(throwable.getLocalizedMessage());
     }
 
