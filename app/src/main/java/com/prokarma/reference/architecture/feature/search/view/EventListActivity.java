@@ -1,4 +1,4 @@
-package com.prokarma.reference.architecture.search.view;
+package com.prokarma.reference.architecture.feature.search.view;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;

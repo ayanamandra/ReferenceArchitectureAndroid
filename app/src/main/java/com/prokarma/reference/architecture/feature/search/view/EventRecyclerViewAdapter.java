@@ -1,7 +1,6 @@
-package com.prokarma.reference.architecture.search.view;
+package com.prokarma.reference.architecture.feature.search.view;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;

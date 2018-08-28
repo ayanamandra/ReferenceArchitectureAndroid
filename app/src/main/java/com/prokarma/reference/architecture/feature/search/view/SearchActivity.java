@@ -1,15 +1,15 @@
-package com.prokarma.reference.architecture.search.view;
-
-import com.prokarma.reference.architecture.R;
-import com.prokarma.reference.architecture.databinding.ActivitySearchBinding;
-import com.prokarma.reference.architecture.search.viewmodel.SearchViewModel;
+package com.prokarma.reference.architecture.feature.search.view;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+
+import com.prokarma.reference.architecture.R;
+import com.prokarma.reference.architecture.databinding.ActivitySearchBinding;
+import com.prokarma.reference.architecture.feature.search.viewmodel.SearchViewModel;
 
 
 public class SearchActivity extends AppCompatActivity {
