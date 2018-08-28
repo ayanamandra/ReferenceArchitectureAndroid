@@ -8,17 +8,17 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.prokarma.reference.architecture.R;
-import com.prokarma.reference.architecture.databinding.ActivitySearchBinding;
+import com.prokarma.reference.architecture.databinding.ActivityHomeBinding;
 
 
-public class SearchActivity extends AppCompatActivity {
-    private SearchViewModel viewModel;
+public class HomeActivity extends AppCompatActivity {
+    private HomeViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ActivitySearchBinding activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_search);
-        viewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
+        final ActivityHomeBinding activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+        viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         activityBinding.setSearchViewModel(viewModel);
 
         // Create the observer which updates the UI.

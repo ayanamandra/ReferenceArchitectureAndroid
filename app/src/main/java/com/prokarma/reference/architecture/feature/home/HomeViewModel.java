@@ -11,9 +11,9 @@ import com.prokarma.reference.architecture.networking.NetworkInterface;
 /**
  * A view model for search related support.
  */
-public class SearchViewModel extends ViewModel implements NetworkInterface {
+public class HomeViewModel extends ViewModel implements NetworkInterface {
 
-    private final String TAG = "SearchViewModel";
+    private final String TAG = "HomeViewModel";
 
     //region Instance variables
     private String mSearchQuery;
@@ -22,7 +22,7 @@ public class SearchViewModel extends ViewModel implements NetworkInterface {
     //endregion
 
     //region Constructors
-    public SearchViewModel() {
+    public HomeViewModel() {
         mSearchQuery = "";
         mSearchKeyword = "";
     }
