@@ -1,4 +1,4 @@
-package com.prokarma.reference.architecture.feature.search.view;
+package com.prokarma.reference.architecture.feature.home;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.databinding.ActivitySearchBinding;
-import com.prokarma.reference.architecture.feature.search.viewmodel.SearchViewModel;
 
 
 public class SearchActivity extends AppCompatActivity {

@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".feature.search.view.SearchActivity">
+    tools:context=".feature.home.SearchActivity">
 
     <data>
     <variable name="searchViewModel"
-        type="com.prokarma.reference.architecture.feature.search.viewmodel.SearchViewModel"/>
+        type="com.prokarma.reference.architecture.feature.home.SearchViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

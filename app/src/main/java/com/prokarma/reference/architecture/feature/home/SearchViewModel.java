@@ -1,4 +1,4 @@
-package com.prokarma.reference.architecture.feature.search.viewmodel;
+package com.prokarma.reference.architecture.feature.home;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
