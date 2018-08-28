@@ -1,6 +1,7 @@
 package com.prokarma.reference.architecture.feature.search.event_list;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
 
 import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.Image;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * View model in charge of event handling.
  */
-public class EventViewModel {
+public class EventViewModel extends ViewModel implements EventListener {
 
     //region Instance Variables
     private MutableLiveData<List<Event>> mEventslLiveData;
@@ -28,6 +29,11 @@ public class EventViewModel {
     public void fetchEvents() {
         // Mock data repository access
         onEventsResult(new ArrayList<Event>());
+    }
+
+    @Override
+    public void openEventDetail(String id) {
+
     }
     //endregion
 
@@ -47,7 +53,7 @@ public class EventViewModel {
         newEventsList.add(eventAndroidIo);
 
         // Notify observers
-        mEventslLiveData.postValue(newEventsList);
+        mEventslLiveData.setValue(newEventsList);
     }
     //endregion
 
@@ -62,4 +68,10 @@ public class EventViewModel {
         return mEventslLiveData;
     }
     //endregion
+}
+
+interface EventListener extends EventActions {
+    /*
+     * Extend with custom filters
+     */
 }

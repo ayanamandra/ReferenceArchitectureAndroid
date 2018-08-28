@@ -1,5 +1,6 @@
 package com.prokarma.reference.architecture.feature.search.event_list;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
@@ -17,8 +18,13 @@ import com.prokarma.reference.architecture.model.Event;
 public class EventRecyclerViewAdapter
         extends ListAdapter<Event, EventRecyclerViewAdapter.EventViewHolder> {
 
-    protected EventRecyclerViewAdapter(@NonNull DiffUtil.ItemCallback<Event> diffCallback) {
-        super(diffCallback);
+    private EventListener mEventListener;
+    private LifecycleOwner mLifecycleOwner;
+
+    protected EventRecyclerViewAdapter(EventListener eventListener, LifecycleOwner lifecycleOwner) {
+        super(DIFF_CALLBACK);
+        mEventListener = eventListener;
+        mLifecycleOwner = lifecycleOwner;
     }
 
     @NonNull
@@ -28,7 +34,7 @@ public class EventRecyclerViewAdapter
         ItemEventListBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()), viewType, parent, false);
 
-        return new EventViewHolder(binding);
+        return new EventViewHolder(binding, mEventListener, mLifecycleOwner);
     }
 
     @Override
@@ -40,20 +46,36 @@ public class EventRecyclerViewAdapter
 
         @NonNull
         private final ItemEventListBinding mViewBinding;
+        private final EventListener mEventListener;
+        private final LifecycleOwner mLifecycleOwner;
 
-
-        EventViewHolder(@NonNull ItemEventListBinding viewBinding) {
+        EventViewHolder(@NonNull ItemEventListBinding viewBinding,
+                        @NonNull EventListener eventListener,
+                        @NonNull LifecycleOwner lifecycleOwner) {
             super(viewBinding.getRoot());
             mViewBinding = viewBinding;
-            //TODO: WIP
+            mLifecycleOwner = lifecycleOwner;
+            mEventListener = eventListener;
         }
 
         void bind(Event event) {
             mViewBinding.setEvent(event);
-            //TODO: WIP
+            mViewBinding.setEventListener(mEventListener);
+            mViewBinding.setLifecycleOwner(mLifecycleOwner);
             mViewBinding.executePendingBindings();
         }
     }
 
-    //TODO DiffUtil
+    private static final DiffUtil.ItemCallback<Event> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<Event>() {
+        @Override
+        public boolean areItemsTheSame(Event oldItem, Event newItem) {
+            return oldItem.id.equals(newItem.id);
+        }
+
+        @Override
+        public boolean areContentsTheSame(Event oldItem, Event newItem) {
+            return oldItem == newItem;
+        }
+    };
 }
