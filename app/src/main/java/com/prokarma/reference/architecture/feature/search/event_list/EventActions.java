@@ -1,4 +1,4 @@
-package com.prokarma.reference.architecture.feature.search.view;
+package com.prokarma.reference.architecture.feature.search.event_list;
 
 
 /**

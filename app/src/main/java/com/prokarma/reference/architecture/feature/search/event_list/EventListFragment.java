@@ -1,4 +1,4 @@
-package com.prokarma.reference.architecture.feature.search.view;
+package com.prokarma.reference.architecture.feature.search.event_list;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

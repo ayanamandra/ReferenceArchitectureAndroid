@@ -11,7 +11,7 @@
 
         <variable
             name="eventListener"
-            type="com.prokarma.reference.architecture.feature.search.view.EventActions" />
+            type="com.prokarma.reference.architecture.feature.search.event_list.EventActions" />
     </data>
 
     <android.support.constraint.ConstraintLayout

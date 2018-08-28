@@ -1,4 +1,4 @@
-package com.prokarma.reference.architecture.feature.search.viewmodel;
+package com.prokarma.reference.architecture.feature.search.event_list;
 
 import android.arch.lifecycle.MutableLiveData;
 
