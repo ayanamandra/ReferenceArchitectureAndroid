@@ -17,5 +17,10 @@
         android:id="@+id/listFragment"
         android:name="com.prokarma.reference.architecture.feature.search.list.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list">
+        <argument
+            android:name="keyword"
+            android:defaultValue='""'
+            app:argType="string" />
+    </fragment>
 </navigation>

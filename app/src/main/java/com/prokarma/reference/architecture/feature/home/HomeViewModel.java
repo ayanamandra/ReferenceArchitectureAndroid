@@ -2,6 +2,7 @@ package com.prokarma.reference.architecture.feature.home;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
@@ -39,7 +40,10 @@ public class HomeViewModel extends ViewModel implements NetworkInterface {
     public void search(View view) {
         Log.d(TAG, "Search event triggered: query = " + mSearchQuery + " keyword: " + mSearchKeyword);
         //NetworkAbstractionLayer.getSearchEventsNoRxJava(this, mSearchKeyword);
-        Navigation.findNavController(view).navigate(R.id.action_home_to_list);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("keyword", mSearchKeyword);
+        Navigation.findNavController(view).navigate(R.id.action_home_to_list, bundle);
     }
     //endregion
 
