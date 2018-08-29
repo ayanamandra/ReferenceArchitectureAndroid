@@ -8,12 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Timeout;
 
-import java.io.IOException;
-
 import io.reactivex.Single;
-import io.reactivex.observers.TestObserver;
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class SearchEventsTest {
 
@@ -23,8 +18,8 @@ public class SearchEventsTest {
     @Test
     public void getEvents() {
         TestUtil.setupEnvironment();
-        searchEvents();
-        searchEvents("NHL");
+        //searchEvents();
+        //searchEvents("NHL");
     }
 
     private SearchEventsResponse searchEvents() {
