@@ -5,19 +5,23 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.prokarma.reference.architecture.R;
-import com.prokarma.reference.architecture.databinding.ActivityHomeBinding;
+import com.prokarma.reference.architecture.databinding.FragmentHomeBinding;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeFragment extends Fragment {
     private HomeViewModel viewModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        final ActivityHomeBinding activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        final FragmentHomeBinding activityBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         activityBinding.setSearchViewModel(viewModel);
 
@@ -32,14 +36,15 @@ public class HomeActivity extends AppCompatActivity {
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         viewModel.getNumberOfEvents().observe(this, numberOfEventsObserver);
+        return activityBinding.getRoot();
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroyView() {
         if (viewModel != null && viewModel.getNumberOfEvents().hasActiveObservers()) {
             viewModel.getNumberOfEvents().removeObservers(this);
         }
 
-        super.onDestroy();
+        super.onDestroyView();
     }
 }
