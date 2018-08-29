@@ -2,10 +2,14 @@ package com.prokarma.reference.architecture.feature.search.list;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.util.Log;
 
 import com.prokarma.reference.architecture.feature.search.event_list.EventActions;
 import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.Image;
+import com.prokarma.reference.architecture.model.SearchEventsResponse;
+import com.prokarma.reference.architecture.networking.NetworkAbstractionLayer;
+import com.prokarma.reference.architecture.networking.NetworkInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +18,7 @@ import java.util.List;
 /**
  * View model in charge of event handling.
  */
-public class ListViewModel extends ViewModel implements EventListener {
+public class ListViewModel extends ViewModel implements EventListener, NetworkInterface {
 
     //region Instance Variables
     private MutableLiveData<List<Event>> mEventslLiveData;
@@ -27,9 +31,8 @@ public class ListViewModel extends ViewModel implements EventListener {
     //endregion
 
     //region Public methods
-    public void fetchEvents() {
-        // Mock data repository access
-        onEventsResult(new ArrayList<Event>());
+    public void fetchEvents(String keyword) {
+        NetworkAbstractionLayer.getSearchEventsNoRxJava(this, keyword);
     }
 
     @Override
@@ -62,11 +65,22 @@ public class ListViewModel extends ViewModel implements EventListener {
     public MutableLiveData<List<Event>> getEvents() {
 
         // Create a new Live data object if none exists.
-        if(mEventslLiveData == null) {
+        if (mEventslLiveData == null) {
             mEventslLiveData = new MutableLiveData<>();
-            fetchEvents();
         }
         return mEventslLiveData;
+    }
+
+    @Override
+    public void onCallCompleted(Object model) {
+        Log.d("ListViewModel", "Call Completed " + model);
+        getEvents().postValue(((SearchEventsResponse) model).getEmbedded().getEvents());
+    }
+
+    @Override
+    public void onCallFailed(Throwable throwable) {
+        Log.e("ListViewModel", "Call Failed " + throwable);
+        getEvents().postValue(new ArrayList<>());
     }
     //endregion
 }

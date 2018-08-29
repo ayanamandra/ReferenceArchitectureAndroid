@@ -1,28 +1,24 @@
 package com.prokarma.reference.architecture.feature.home;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.prokarma.reference.architecture.R;
-import com.prokarma.reference.architecture.model.SearchEventsResponse;
-import com.prokarma.reference.architecture.networking.NetworkInterface;
 
 import androidx.navigation.Navigation;
 
 /**
  * A view model for search related support.
  */
-public class HomeViewModel extends ViewModel implements NetworkInterface {
+public class HomeViewModel extends ViewModel {
 
     private final String TAG = "HomeViewModel";
 
     //region Instance variables
     private String mSearchQuery;
     private String mSearchKeyword;
-    private MutableLiveData<String> mNumberOfEvents;
     //endregion
 
     //region Constructors
@@ -39,7 +35,6 @@ public class HomeViewModel extends ViewModel implements NetworkInterface {
      */
     public void search(View view) {
         Log.d(TAG, "Search event triggered: query = " + mSearchQuery + " keyword: " + mSearchKeyword);
-        //NetworkAbstractionLayer.getSearchEventsNoRxJava(this, mSearchKeyword);
 
         Bundle bundle = new Bundle();
         bundle.putString("keyword", mSearchKeyword);
@@ -62,25 +57,6 @@ public class HomeViewModel extends ViewModel implements NetworkInterface {
 
     public void setSearchKeyword(String searchKeyword) {
         mSearchKeyword = searchKeyword;
-    }
-
-    // Create a LiveData with a String
-
-    public MutableLiveData<String> getNumberOfEvents() {
-        if (mNumberOfEvents == null) {
-            mNumberOfEvents = new MutableLiveData<String>();
-        }
-        return mNumberOfEvents;
-    }
-
-    @Override
-    public void onCallCompleted(Object model) {
-        getNumberOfEvents().postValue(((SearchEventsResponse) model).getPage().getTotalElements().toString());
-    }
-
-    @Override
-    public void onCallFailed(Throwable throwable) {
-        getNumberOfEvents().postValue(throwable.getLocalizedMessage());
     }
 
     //endregion
