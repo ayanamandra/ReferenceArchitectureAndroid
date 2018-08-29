@@ -52,6 +52,12 @@ dependencies {
     implementation "android.arch.lifecycle:runtime:$lifecycle_version"
     annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
 
+    def nav_version = "1.0.0-alpha05"
+
+    implementation "android.arch.navigation:navigation-fragment:$nav_version"
+    implementation "android.arch.navigation:navigation-ui:$nav_version"
+    androidTestImplementation "android.arch.navigation:navigation-testing:$nav_version" //For testing
+
     //RxJava/RxAndroid
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
