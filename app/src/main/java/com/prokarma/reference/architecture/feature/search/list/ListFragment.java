@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +32,14 @@ public class ListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mListViewModel = createViewModel();
         mAdapter = new ListRecyclerViewAdapter(mListViewModel, this);
+        mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mBinding.recyclerview.setAdapter(mAdapter);
         mListViewModel.getEvents().observe(this, eventList -> {
             mAdapter.submitList(eventList);
         });
+
+        String keyword = getArguments() != null ? getArguments().getString("keyword") : "";
+        mListViewModel.fetchEvents(keyword);
     }
 
     ListViewModel createViewModel() {

@@ -9,11 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.databinding.ItemEventListBinding;
 import com.prokarma.reference.architecture.model.Event;
 
-public class ListRecyclerViewAdapter
-        extends ListAdapter<Event, ListRecyclerViewAdapter.EventViewHolder> {
+public class ListRecyclerViewAdapter extends ListAdapter<Event, ListRecyclerViewAdapter.EventViewHolder> {
 
     private com.prokarma.reference.architecture.feature.search.list.EventListener mEventListener;
     private LifecycleOwner mLifecycleOwner;
@@ -27,10 +27,7 @@ public class ListRecyclerViewAdapter
     @NonNull
     @Override
     public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        ItemEventListBinding binding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.getContext()), viewType, parent, false);
-
+        ItemEventListBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_event_list, parent, false);
         return new EventViewHolder(binding, mEventListener, mLifecycleOwner);
     }
 
