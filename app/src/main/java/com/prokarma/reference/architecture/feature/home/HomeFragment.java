@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         viewModel.getNumberOfEvents().observe(this, numberOfEventsObserver);
+        activityBinding.setLifecycleOwner(this);
         return activityBinding.getRoot();
     }
 

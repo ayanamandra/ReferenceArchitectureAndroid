@@ -2,11 +2,15 @@ package com.prokarma.reference.architecture.feature.home;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
+import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
-import com.prokarma.reference.architecture.networking.NetworkAbstractionLayer;
 import com.prokarma.reference.architecture.networking.NetworkInterface;
+
+import androidx.navigation.Navigation;
 
 /**
  * A view model for search related support.
@@ -33,9 +37,13 @@ public class HomeViewModel extends ViewModel implements NetworkInterface {
     /**
      * Search for related events to the given input.
      */
-    public void search() {
+    public void search(View view) {
         Log.d(TAG, "Search event triggered: query = " + mSearchQuery + " keyword: " + mSearchKeyword);
-        NetworkAbstractionLayer.getSearchEventsNoRxJava(this, mSearchKeyword);
+        //NetworkAbstractionLayer.getSearchEventsNoRxJava(this, mSearchKeyword);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("keyword", mSearchKeyword);
+        Navigation.findNavController(view).navigate(R.id.action_home_to_list, bundle);
     }
     //endregion
 
