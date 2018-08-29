@@ -8,5 +8,14 @@
         android:id="@+id/homeFragment"
         android:name="com.prokarma.reference.architecture.feature.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_list"
+            app:destination="@+id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.prokarma.reference.architecture.feature.search.list.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" />
 </navigation>
