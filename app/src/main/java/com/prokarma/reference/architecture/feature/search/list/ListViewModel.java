@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.prokarma.reference.architecture.feature.search.event_list.EventActions;
 import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
@@ -34,8 +35,12 @@ public class ListViewModel extends ViewModel implements EventListener, NetworkIn
 
     @BindingAdapter({"bind:imageUrl"})
     public static void loadImage(ImageView view, String imageUrl) {
+        RequestOptions options = new RequestOptions()
+                .fitCenter();
+
         Glide.with(view.getContext())
                 .load(imageUrl)
+                .apply(options)
                 .into(view);
     }
 
