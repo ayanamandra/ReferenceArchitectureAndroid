@@ -12,7 +12,7 @@ import com.prokarma.reference.architecture.feature.search.event_list.EventAction
 import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
-import com.prokarma.reference.architecture.networking.NetworkAbstractionLayer;
+import com.prokarma.reference.architecture.networking.ApplicationDataRepository;
 import com.prokarma.reference.architecture.networking.NetworkInterface;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class ListViewModel extends ViewModel implements EventListener, NetworkIn
     }
 
     public void fetchEvents(String keyword) {
-        NetworkAbstractionLayer.getSearchEventsNoRxJava(this, keyword);
+        ApplicationDataRepository.getSearchEventsNoRxJava(this, keyword);
     }
 
     @BindingAdapter({"bind:imageUrl"})

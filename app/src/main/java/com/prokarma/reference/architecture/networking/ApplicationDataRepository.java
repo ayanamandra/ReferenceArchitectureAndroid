@@ -12,8 +12,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NetworkAbstractionLayer {
-    private static final String TAG = "NetworkAbstractionLayer";
+public class ApplicationDataRepository {
+    private static final String TAG = "AppDataRepository";
 
     public static void getSearchEvents(@Nullable final NetworkInterface networkInterface, @Nullable String keyword) {
         NetworkManager.getInstance().getEvents(keyword)
