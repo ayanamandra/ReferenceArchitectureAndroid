@@ -5,10 +5,15 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.prokarma.reference.architecture.core.util.Logger;
+
+import android.databinding.BindingAdapter;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.prokarma.reference.architecture.feature.search.event_list.EventActions;
 import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
-import com.prokarma.reference.architecture.model.Image;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 import com.prokarma.reference.architecture.networking.NetworkAbstractionLayer;
 import com.prokarma.reference.architecture.networking.NetworkInterface;
@@ -33,11 +38,20 @@ public class ListViewModel extends AndroidViewModel implements EventListener, Ne
         // TODO: Make a singleton logger instance instead that can be used globally
         mLogger = new Logger(getApplication(), Logger.DEBUG);
     }
-    //endregion
 
-    //region Public methods
     public void fetchEvents(String keyword) {
         NetworkAbstractionLayer.getSearchEventsNoRxJava(this, keyword);
+    }
+
+    @BindingAdapter({"bind:imageUrl"})
+    public static void loadImage(ImageView view, String imageUrl) {
+        RequestOptions options = new RequestOptions()
+                .fitCenter();
+
+        Glide.with(view.getContext())
+                .load(imageUrl)
+                .apply(options)
+                .into(view);
     }
 
     @Override
@@ -48,7 +62,7 @@ public class ListViewModel extends AndroidViewModel implements EventListener, Ne
     @Override
     public void onCallCompleted(Object model) {
 
-        //TODO: Validate input and handle alternative scenarios
+        //Validate input and handle alternative scenarios
         if (model != null) {
             mLogger.d("ListViewModel", "Call Completed " + model);
             Embedded embedded = ((SearchEventsResponse) model).getEmbedded();
@@ -57,11 +71,11 @@ public class ListViewModel extends AndroidViewModel implements EventListener, Ne
                 List<Event> eventList = embedded.getEvents();
                 getEvents().postValue(eventList);
             } else {
-                // TODO: Handle none events found like a no results found view or displaying a message
+                //Handle none events found like a no results found view or displaying a message
                 getEvents().postValue(new ArrayList<>());
             }
         } else {
-            // TODO: Handle invalid arguments
+            //Handle invalid arguments
             onCallFailed(new IllegalArgumentException("null argument"));
         }
 
@@ -72,13 +86,7 @@ public class ListViewModel extends AndroidViewModel implements EventListener, Ne
         mLogger.e("ListViewModel", "Call Failed " + throwable);
         getEvents().postValue(new ArrayList<>());
     }
-    //endregion
 
-    //region Private and protected methods
-
-    //endregion
-
-    //region Accessors and Mutators
     public MutableLiveData<List<Event>> getEvents() {
 
         // Create a new Live data object if none exists.
@@ -87,7 +95,6 @@ public class ListViewModel extends AndroidViewModel implements EventListener, Ne
         }
         return mEventsListLiveData;
     }
-    //endregion
 }
 
 interface EventListener extends EventActions {
