@@ -48,22 +48,24 @@
                 android:layout_marginStart="@dimen/view_margin_small"
                 android:layout_marginTop="@dimen/view_margin_small"
                 android:maxLines="1"
-                android:text= "@{@string/location_text(event.embedded.venues.get(0).city.name, event.embedded.venues.get(0).state.stateCode)}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@{@string/location_text(event.embedded.venues.get(0).city.name, event.embedded.venues.get(0).state.stateCode)}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_location_icon"
                 app:layout_constraintStart_toEndOf="@+id/iv_location_icon"
                 app:layout_constraintTop_toBottomOf="@+id/tv_event_title"
+                app:layout_constraintVertical_chainStyle="spread_inside"
                 tools:text="@string/sample_event_location" />
-            <!--android:text="@{event.embedded.venues.get(0).city.name}"-->
+
             <ImageView
                 android:id="@+id/iv_location_icon"
-                android:layout_width="@dimen/location_icon_size"
-                android:layout_height="@dimen/location_icon_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/view_margin_small"
                 android:contentDescription="@string/content_description_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_event_title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_event_title"
-                app:srcCompat="@android:color/holo_green_light" />
+                app:srcCompat="@drawable/ic_pin_drop_grey" />
 
             <TextView
                 android:id="@+id/tv_event_title"
