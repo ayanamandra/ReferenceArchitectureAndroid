@@ -15,7 +15,7 @@ public class NetworkManager {
     private RESTService service = null;
     private static NetworkManager instance = null;
     private static OkHttpClient.Builder httpClient = null;
-    public OkHttpClient client;
+    private OkHttpClient client;
 
     public static NetworkManager getInstance() {
         if (instance == null) {
@@ -31,7 +31,7 @@ public class NetworkManager {
             client = httpClient.build();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(TicketMasterManager.TICKETMASTER_BASE_URL)
+                    .baseUrl(TicketMasterManager.getTicketmasterBaseUrl())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(client)
