@@ -15,7 +15,7 @@ import retrofit2.Response;
 public class ApplicationDataRepository {
     private static final String TAG = "AppDataRepository";
 
-    public static void getSearchEvents(@Nullable final NetworkInterface networkInterface, @Nullable String keyword) {
+    public static void getSearchEvents(@Nullable final OnCallListener onCallListener, @Nullable String keyword) {
         NetworkManager.getInstance().getEvents(keyword)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -23,37 +23,37 @@ public class ApplicationDataRepository {
                     @Override
                     public void onSuccess(SearchEventsResponse searchEventsResponse) {
                         Log.e(TAG, "Search Events found: " + searchEventsResponse.getPage().getTotalElements());
-                        if (networkInterface != null) {
-                            networkInterface.onCallCompleted(searchEventsResponse);
+                        if (onCallListener != null) {
+                            onCallListener.onCallCompleted(searchEventsResponse);
                         }
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         Log.e(TAG, throwable.getLocalizedMessage());
-                        if (networkInterface != null) {
-                            networkInterface.onCallFailed(throwable);
+                        if (onCallListener != null) {
+                            onCallListener.onCallFailed(throwable);
                         }
                     }
                 });
     }
 
-    public static void getSearchEventsNoRxJava(@Nullable final NetworkInterface networkInterface, @Nullable String keyword) {
+    public static void getSearchEventsNoRxJava(@Nullable final OnCallListener onCallListener, @Nullable String keyword) {
         NetworkManager.getInstance().getEventsNoRxJava(keyword).enqueue(new Callback<SearchEventsResponse>() {
             @Override
             public void onResponse(Call<SearchEventsResponse> call, Response<SearchEventsResponse> response) {
                 SearchEventsResponse searchEventsResponse = response.body();
                 Log.e(TAG, "Search Events found: " + searchEventsResponse.getPage().getTotalElements());
-                if (networkInterface != null) {
-                    networkInterface.onCallCompleted(searchEventsResponse);
+                if (onCallListener != null) {
+                    onCallListener.onCallCompleted(searchEventsResponse);
                 }
             }
 
             @Override
             public void onFailure(Call<SearchEventsResponse> call, Throwable throwable) {
                 Log.e(TAG, throwable.getLocalizedMessage());
-                if (networkInterface != null) {
-                    networkInterface.onCallFailed(throwable);
+                if (onCallListener != null) {
+                    onCallListener.onCallFailed(throwable);
                 }
             }
         });

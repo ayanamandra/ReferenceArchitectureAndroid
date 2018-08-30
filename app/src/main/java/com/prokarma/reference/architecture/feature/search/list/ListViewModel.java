@@ -13,7 +13,7 @@ import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 import com.prokarma.reference.architecture.networking.ApplicationDataRepository;
-import com.prokarma.reference.architecture.networking.NetworkInterface;
+import com.prokarma.reference.architecture.networking.OnCallListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * View model in charge of {@link Event} handling.
  */
-public class ListViewModel extends ViewModel implements EventListener, NetworkInterface {
+public class ListViewModel extends ViewModel implements EventListener, OnCallListener {
     private MutableLiveData<List<Event>> mEventsListLiveData;
 
     public ListViewModel() {
