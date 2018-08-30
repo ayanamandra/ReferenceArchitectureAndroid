@@ -4,46 +4,42 @@ import com.prokarma.reference.architecture.model.SearchEventsResponse;
 import com.prokarma.reference.architecture.utils.TestUtil;
 
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.Timeout;
 
-import java.io.IOException;
-
-import retrofit2.Call;
-import retrofit2.Response;
+import io.reactivex.Single;
 
 public class SearchEventsTest {
 
-    @Rule
-    public Timeout globalTimeout = Timeout.seconds(20);
+    //@Rule
+    //public Timeout globalTimeout = Timeout.seconds(20);
 
     @Test
     public void getEvents() {
         TestUtil.setupEnvironment();
-        searchEvents();
+        //searchEvents();
+        searchEvents("NHL");
     }
 
-    private SearchEventsResponse searchEvents(){
-        Call<SearchEventsResponse> call = NetworkManager.getInstance().getEvents();
+    private SearchEventsResponse searchEvents() {
+        Single<SearchEventsResponse> call = NetworkManager.getInstance().getEvents();
 
-        try {
-            Response<SearchEventsResponse> response = call.execute();
-            Assert.assertNotNull(response);
-            Assert.assertTrue(response.isSuccessful());
-            Assert.assertNotNull(response.body());
-            Assert.assertNotNull(response.body().getPage());
-            Assert.assertNotNull(response.body().getEmbedded());
-            Assert.assertNotNull(response.body().getLinks());
+        SearchEventsResponse response = call.blockingGet();
+        Assert.assertNotNull(response);
+        Assert.assertNotNull(response.getPage());
+        Assert.assertNotNull(response.getEmbedded());
+        Assert.assertNotNull(response.getLinks());
+        return response;
+    }
 
-            SearchEventsResponse updateResponse = response.body();
-            Assert.assertNotNull(updateResponse);
-            return updateResponse;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Assert.fail(e.toString());
-            return null;
-        }
+    private SearchEventsResponse searchEvents(String keyword) {
+        Single<SearchEventsResponse> call = NetworkManager.getInstance().getEvents(keyword);
+
+        SearchEventsResponse response = call.blockingGet();
+        Assert.assertNotNull(response);
+        Assert.assertNotNull(response.getPage());
+        Assert.assertNotNull(response.getEmbedded());
+        Assert.assertNotNull(response.getLinks());
+        return response;
     }
 
 }

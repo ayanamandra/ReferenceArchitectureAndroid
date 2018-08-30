@@ -1,4 +1,4 @@
-package com.prokarma.reference.architecture;
+package com.prokarma.reference.architecture.app;
 
 import android.app.Application;
 
