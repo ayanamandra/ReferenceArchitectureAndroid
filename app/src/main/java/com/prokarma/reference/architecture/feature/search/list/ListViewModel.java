@@ -1,9 +1,10 @@
 package com.prokarma.reference.architecture.feature.search.list;
 
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-import android.util.Log;
 
+import com.prokarma.reference.architecture.core.util.Logger;
 import com.prokarma.reference.architecture.feature.search.event_list.EventActions;
 import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
@@ -19,15 +20,18 @@ import java.util.List;
 /**
  * View model in charge of {@link Event} handling.
  */
-public class ListViewModel extends ViewModel implements EventListener, NetworkInterface {
+public class ListViewModel extends AndroidViewModel implements EventListener, NetworkInterface {
 
     //region Instance Variables
     private MutableLiveData<List<Event>> mEventsListLiveData;
+    private Logger mLogger;
     //endregion
 
     //region Constructors
-    public ListViewModel() {
-
+    public ListViewModel(Application application) {
+        super(application);
+        // TODO: Make a singleton logger instance instead that can be used globally
+        mLogger = new Logger(getApplication(), Logger.DEBUG);
     }
     //endregion
 
@@ -46,7 +50,7 @@ public class ListViewModel extends ViewModel implements EventListener, NetworkIn
 
         //TODO: Validate input and handle alternative scenarios
         if (model != null) {
-            Log.d("ListViewModel", "Call Completed " + model);
+            mLogger.d("ListViewModel", "Call Completed " + model);
             Embedded embedded = ((SearchEventsResponse) model).getEmbedded();
 
             if (embedded != null) {
@@ -65,7 +69,7 @@ public class ListViewModel extends ViewModel implements EventListener, NetworkIn
 
     @Override
     public void onCallFailed(Throwable throwable) {
-        Log.e("ListViewModel", "Call Failed " + throwable);
+        mLogger.e("ListViewModel", "Call Failed " + throwable);
         getEvents().postValue(new ArrayList<>());
     }
     //endregion

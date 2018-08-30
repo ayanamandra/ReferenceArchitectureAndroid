@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import timber.log.Timber;
+
 /**
  * Custom wrapper class for logging purposes on debug builds.
  */
@@ -24,19 +26,19 @@ public class Logger {
 
     public void v(String tag, String message) {
         if (isLogLevelEnabled(VERBOSE)){
-            Log.v(tag, message);
+            Timber.v(tag, message);
         }
     }
 
     public void e(String tag, String message) {
         if (isLogLevelEnabled(ERROR)) {
-            Log.e(tag, message);
+            Timber.e(tag, message);
         }
     }
 
     public void d(String tag, String message) {
         if (isLogLevelEnabled(DEBUG)) {
-            Log.d(tag, message);
+            Timber.d(tag, message);
         }
     }
 
