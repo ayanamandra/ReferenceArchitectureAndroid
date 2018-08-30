@@ -2,8 +2,11 @@ package com.prokarma.reference.architecture.feature.search.list;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.databinding.BindingAdapter;
 import android.util.Log;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.prokarma.reference.architecture.feature.search.event_list.EventActions;
 import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
@@ -27,6 +30,13 @@ public class ListViewModel extends ViewModel implements EventListener, NetworkIn
 
     public void fetchEvents(String keyword) {
         NetworkAbstractionLayer.getSearchEventsNoRxJava(this, keyword);
+    }
+
+    @BindingAdapter({"bind:imageUrl"})
+    public static void loadImage(ImageView view, String imageUrl) {
+        Glide.with(view.getContext())
+                .load(imageUrl)
+                .into(view);
     }
 
     @Override
