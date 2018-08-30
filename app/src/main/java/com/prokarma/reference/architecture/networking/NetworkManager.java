@@ -18,9 +18,10 @@ public class NetworkManager {
     public OkHttpClient client;
 
     public static NetworkManager getInstance() {
-        if (null == instance) {
+        if (instance == null) {
             instance = new NetworkManager();
         }
+
         return instance;
     }
 
