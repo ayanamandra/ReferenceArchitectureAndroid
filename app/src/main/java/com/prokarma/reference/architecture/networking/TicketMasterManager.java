@@ -15,7 +15,7 @@ public class TicketMasterManager extends NetworkManager {
     private static final String TICKETMASTER_URL = "https://app.ticketmaster.com/discovery/v2/events.json";
 
     private static TicketMasterManager instance = null;
-    private static RESTService service = null;
+    private static TicketMasterService service = null;
     private OkHttpClient client;
 
     public static TicketMasterManager getInstance() {
@@ -38,21 +38,21 @@ public class TicketMasterManager extends NetworkManager {
                     .client(client)
                     .build();
 
-            service = retrofit.create(RESTService.class);
+            service = retrofit.create(TicketMasterService.class);
         }
 
         return (T) service;
     }
 
     Single<SearchEventsResponse> getEvents() {
-        return ((RESTService) getRetroFitService()).getEvents(TICKETMASTER_URL, API_KEY);
+        return ((TicketMasterService) getRetroFitService()).getEvents(TICKETMASTER_URL, API_KEY);
     }
 
     Single<SearchEventsResponse> getEvents(String keyword) {
-        return ((RESTService) getRetroFitService()).getEvents(TICKETMASTER_URL, API_KEY, keyword);
+        return ((TicketMasterService) getRetroFitService()).getEvents(TICKETMASTER_URL, API_KEY, keyword);
     }
 
     Call<SearchEventsResponse> getEventsNoRxJava(String keyword) {
-        return ((RESTService) getRetroFitService()).getEventsNoRxJava(TICKETMASTER_URL, API_KEY, keyword);
+        return ((TicketMasterService) getRetroFitService()).getEventsNoRxJava(TICKETMASTER_URL, API_KEY, keyword);
     }
 }
