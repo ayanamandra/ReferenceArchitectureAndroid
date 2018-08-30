@@ -14,4 +14,6 @@
     <string name="sample_event_title">P!NK: Beautiful Trauma World Tour</string>
     <string name="sample_event_date">AUG 29 7:30 pm</string>
     <string name="sample_event_location">Denver, CO</string>
+
+    <string name="location_text">%s, %s</string>
 </resources>
