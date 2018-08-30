@@ -9,23 +9,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.prokarma.reference.architecture.databinding.FragmentEventListBinding;
+import com.prokarma.reference.architecture.model.Event;
 
 /**
- * A placeholder fragment containing a simple view.
+ * Fragment responsible of displaying a list of {@link Event}
  */
 public class EventListFragment extends Fragment {
 
     private EventRecyclerViewAdapter mAdapter;
     private FragmentEventListBinding mBinding;
-    private EventViewModel mEventViewModel;
 
-    public EventListFragment newInstance() {
-        return new EventListFragment();
+    /**
+     * Function to create a new instance of the fragment with the given bundle.
+     * @return an {@link EventListFragment}
+     */
+    public EventListFragment newInstance(Bundle bundle) {
+        EventListFragment newFragment = new EventListFragment();
+        newFragment.setArguments(bundle);
+        return newFragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = FragmentEventListBinding.inflate(inflater, container, false);
         mBinding.setLifecycleOwner(this);
@@ -35,15 +42,15 @@ public class EventListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mEventViewModel = createViewModel();
-        mAdapter = new EventRecyclerViewAdapter(mEventViewModel, this);
+        EventViewModel eventViewModel = getViewModel();
+        mAdapter = new EventRecyclerViewAdapter(eventViewModel, this);
         mBinding.recyclerview.setAdapter(mAdapter);
-        mEventViewModel.getEvents().observe(this, eventList -> {
+        eventViewModel.getEvents().observe(this, eventList -> {
             mAdapter.submitList(eventList);
         });
     }
 
-    EventViewModel createViewModel() {
+    EventViewModel getViewModel() {
         return ViewModelProviders.of(this).get(EventViewModel.class);
     }
 }

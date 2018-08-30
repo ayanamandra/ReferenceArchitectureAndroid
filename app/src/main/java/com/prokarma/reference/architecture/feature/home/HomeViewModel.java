@@ -13,22 +13,15 @@ import androidx.navigation.Navigation;
  * A view model for search related support.
  */
 public class HomeViewModel extends ViewModel {
-
     private final String TAG = "HomeViewModel";
 
-    //region Instance variables
     private String mSearchQuery;
     private String mSearchKeyword;
-    //endregion
 
-    //region Constructors
     public HomeViewModel() {
         mSearchQuery = "";
         mSearchKeyword = "";
     }
-    //endregion
-
-    //region Public methods
 
     /**
      * Search for related events to the given input.
@@ -40,9 +33,7 @@ public class HomeViewModel extends ViewModel {
         bundle.putString("keyword", mSearchKeyword);
         Navigation.findNavController(view).navigate(R.id.action_home_to_list, bundle);
     }
-    //endregion
 
-    //region Accessors and Mutators
     public String getSearchQuery() {
         return mSearchQuery;
     }
@@ -58,6 +49,4 @@ public class HomeViewModel extends ViewModel {
     public void setSearchKeyword(String searchKeyword) {
         mSearchKeyword = searchKeyword;
     }
-
-    //endregion
 }
