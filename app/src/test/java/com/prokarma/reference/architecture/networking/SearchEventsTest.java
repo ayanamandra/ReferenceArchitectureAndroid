@@ -4,22 +4,20 @@ import com.prokarma.reference.architecture.model.SearchEventsResponse;
 import com.prokarma.reference.architecture.utils.TestUtil;
 
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.Timeout;
 
 import io.reactivex.Single;
 
 public class SearchEventsTest {
 
-    @Rule
-    public Timeout globalTimeout = Timeout.seconds(20);
+    //@Rule
+    //public Timeout globalTimeout = Timeout.seconds(20);
 
     @Test
     public void getEvents() {
         TestUtil.setupEnvironment();
         //searchEvents();
-        //searchEvents("NHL");
+        searchEvents("NHL");
     }
 
     private SearchEventsResponse searchEvents() {

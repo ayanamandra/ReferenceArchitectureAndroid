@@ -34,8 +34,8 @@
             android:id="@+id/layout_event_details"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/view_group_margin_small"
             android:layout_marginStart="@dimen/view_group_margin_small"
+            android:layout_marginEnd="@dimen/view_group_margin_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_event_date"
             app:layout_constraintStart_toEndOf="@+id/iv_event_image"
@@ -48,12 +48,12 @@
                 android:layout_marginStart="@dimen/view_margin_small"
                 android:layout_marginTop="@dimen/view_margin_small"
                 android:maxLines="1"
+                android:text= "@{@string/location_text(event.embedded.venues.get(0).city.name, event.embedded.venues.get(0).state.stateCode)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_location_icon"
                 app:layout_constraintTop_toBottomOf="@+id/tv_event_title"
-                android:text="@{event.locale}"
                 tools:text="@string/sample_event_location" />
-
+            <!--android:text="@{event.embedded.venues.get(0).city.name}"-->
             <ImageView
                 android:id="@+id/iv_location_icon"
                 android:layout_width="@dimen/location_icon_size"
@@ -71,8 +71,8 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textStyle="bold"
                 android:text="@{event.name}"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
