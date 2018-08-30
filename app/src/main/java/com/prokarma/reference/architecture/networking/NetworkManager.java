@@ -1,9 +1,11 @@
 package com.prokarma.reference.architecture.networking;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -14,10 +16,6 @@ public class NetworkManager {
     private static NetworkManager instance = null;
     private static OkHttpClient.Builder httpClient = null;
     public OkHttpClient client;
-
-    private static final String API_KEY = "Ctl1pftvJYMyVJVycySAlLNDVhRMGBMb";
-    private static final String TICKETMASTER_BASE_URL = "https://app.ticketmaster.com/";
-    private static final String TICKETMASTER_URL = "https://app.ticketmaster.com/discovery/v2/events.json";
 
     public static NetworkManager getInstance() {
         if (null == instance) {
@@ -32,8 +30,9 @@ public class NetworkManager {
             client = httpClient.build();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(TICKETMASTER_BASE_URL)
+                    .baseUrl(TicketMasterManager.TICKETMASTER_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(client)
                     .build();
 
@@ -51,7 +50,15 @@ public class NetworkManager {
         return service != null;
     }
 
-    public Call<SearchEventsResponse> getEvents() {
-        return service.getEvents(TICKETMASTER_URL, API_KEY);
+    public Single<SearchEventsResponse> getEvents() {
+        return TicketMasterManager.getEvents(service);
+    }
+
+    public Single<SearchEventsResponse> getEvents(String keyword) {
+        return TicketMasterManager.getEvents(service, keyword);
+    }
+
+    public Call<SearchEventsResponse> getEventsNoRxJava(String keyword) {
+        return TicketMasterManager.getEventsNoRxJava(service, keyword);
     }
 }
