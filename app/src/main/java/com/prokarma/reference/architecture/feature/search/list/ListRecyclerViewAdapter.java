@@ -13,12 +13,15 @@ import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.databinding.ItemEventListBinding;
 import com.prokarma.reference.architecture.model.Event;
 
+/**
+ * Adapter responsible for displaying a list of {@link Event}
+ */
 public class ListRecyclerViewAdapter extends ListAdapter<Event, ListRecyclerViewAdapter.EventViewHolder> {
 
-    private com.prokarma.reference.architecture.feature.search.list.EventListener mEventListener;
+    private EventListener mEventListener;
     private LifecycleOwner mLifecycleOwner;
 
-    protected ListRecyclerViewAdapter(com.prokarma.reference.architecture.feature.search.list.EventListener eventListener, LifecycleOwner lifecycleOwner) {
+    protected ListRecyclerViewAdapter(EventListener eventListener, LifecycleOwner lifecycleOwner) {
         super(DIFF_CALLBACK);
         mEventListener = eventListener;
         mLifecycleOwner = lifecycleOwner;

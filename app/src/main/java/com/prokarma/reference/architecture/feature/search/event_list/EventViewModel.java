@@ -11,7 +11,7 @@ import java.util.List;
 
 
 /**
- * View model in charge of event handling.
+ * View model in charge of {@link Event} handling.
  */
 public class EventViewModel extends ViewModel implements EventListener {
 
@@ -70,6 +70,10 @@ public class EventViewModel extends ViewModel implements EventListener {
     //endregion
 }
 
+/**
+ * Interface used for extending the actions that can occur while handling events
+ * such as applying filters, sorting given a specific criteria or more.
+ */
 interface EventListener extends EventActions {
     /*
      * Extend with custom filters
