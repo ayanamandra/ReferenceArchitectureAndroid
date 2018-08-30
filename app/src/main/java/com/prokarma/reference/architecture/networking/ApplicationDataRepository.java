@@ -16,7 +16,7 @@ public class ApplicationDataRepository {
     private static final String TAG = "AppDataRepository";
 
     public static void getSearchEvents(@Nullable final OnCallListener onCallListener, @Nullable String keyword) {
-        NetworkManager.getInstance().getEvents(keyword)
+        TicketMasterManager.getInstance().getEvents(keyword)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<SearchEventsResponse>() {
@@ -39,7 +39,7 @@ public class ApplicationDataRepository {
     }
 
     public static void getSearchEventsNoRxJava(@Nullable final OnCallListener onCallListener, @Nullable String keyword) {
-        NetworkManager.getInstance().getEventsNoRxJava(keyword).enqueue(new Callback<SearchEventsResponse>() {
+        TicketMasterManager.getInstance().getEventsNoRxJava(keyword).enqueue(new Callback<SearchEventsResponse>() {
             @Override
             public void onResponse(Call<SearchEventsResponse> call, Response<SearchEventsResponse> response) {
                 SearchEventsResponse searchEventsResponse = response.body();
