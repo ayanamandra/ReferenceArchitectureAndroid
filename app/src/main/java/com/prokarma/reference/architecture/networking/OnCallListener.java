@@ -1,6 +1,6 @@
 package com.prokarma.reference.architecture.networking;
 
-public interface NetworkInterface<T> {
+public interface OnCallListener<T> {
 
     void onCallCompleted(T model);
 
