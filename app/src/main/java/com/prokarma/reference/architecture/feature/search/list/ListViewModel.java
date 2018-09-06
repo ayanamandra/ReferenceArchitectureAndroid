@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.prokarma.reference.architecture.core.util.Logger;
 
+import android.arch.lifecycle.ViewModel;
 import android.databinding.BindingAdapter;
 import android.widget.ImageView;
 
@@ -16,7 +17,7 @@ import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 import com.prokarma.reference.architecture.networking.ApplicationDataRepository;
-import com.prokarma.reference.architecture.networking.NetworkInterface;
+import com.prokarma.reference.architecture.networking.OnCallListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +26,10 @@ import java.util.List;
 /**
  * View model in charge of {@link Event} handling.
  */
-public class ListViewModel extends AndroidViewModel implements EventListener, NetworkInterface {
-
-    //region Instance Variables
+public class ListViewModel extends AndroidViewModel implements EventListener, OnCallListener {
     private MutableLiveData<List<Event>> mEventsListLiveData;
     private Logger mLogger;
-    //endregion
 
-    //region Constructors
     public ListViewModel(Application application) {
         super(application);
         // TODO: Make a singleton logger instance instead that can be used globally

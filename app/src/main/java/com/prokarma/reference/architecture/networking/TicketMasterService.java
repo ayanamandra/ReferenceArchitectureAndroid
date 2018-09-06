@@ -8,7 +8,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
-public interface RESTService {
+public interface TicketMasterService {
     String API_KEY = "apikey";
     String QUERY_KEYWORD = "keyword";
 

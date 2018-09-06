@@ -2,8 +2,6 @@ package com.prokarma.reference.architecture.app;
 
 import android.app.Application;
 
-import com.prokarma.reference.architecture.networking.NetworkManager;
-
 public class ReferenceApplication extends Application {
 
     @Override
@@ -11,6 +9,8 @@ public class ReferenceApplication extends Application {
         super.onCreate();
 
         //init retrofit service
-        NetworkManager.getInstance().initService();
+        //we no longer need to do this, as we always use the getter method of the class to get the service
+        // and that method initializes the service if null (first call)
+        //TicketMasterManager.getInstance().getRetroFitService();
     }
 }
