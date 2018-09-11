@@ -29,6 +29,10 @@ public class DetailsViewModel extends ViewModel {
 
     }
 
+    public void setEventData(Event mEvent){
+        mEventLiveData.setValue(mEvent);
+    }
+
     public MutableLiveData<Event> getEvent() {
 
         // Create a new Live data object if none exists.

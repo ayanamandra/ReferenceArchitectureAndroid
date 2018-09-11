@@ -33,7 +33,7 @@ public class EventViewModel extends ViewModel implements EventListener{
     }
 
     @Override
-    public void openEventDetail(View view, String id) {
+    public void openEventDetail(View view, Event event) {
 
     }
     //endregion

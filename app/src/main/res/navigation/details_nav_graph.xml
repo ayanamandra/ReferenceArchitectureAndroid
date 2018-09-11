@@ -19,8 +19,8 @@
         android:label="fragment_details"
         tools:layout="@layout/fragment_details">
         <argument
-            android:name="event_id"
+            android:name="event"
             android:defaultValue='""'
-            app:argType="string" />
+            app:argType="com.prokarma.reference.architecture.model.Event" />
     </fragment>
 </navigation>

@@ -50,9 +50,9 @@ public class ListViewModel extends ViewModel implements EventListener, OnCallLis
     }
 
     @Override
-    public void openEventDetail(View view, String id) {
+    public void openEventDetail(View view, Event event) {
         Bundle bundle = new Bundle();
-        bundle.putString("event_id", id);
+        bundle.putSerializable("event", event);
         Navigation.findNavController(view).navigate(R.id.action_list_to_details, bundle);
     }
 

@@ -14,6 +14,7 @@ import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.databinding.FragmentDetailsBinding;
 import com.prokarma.reference.architecture.databinding.FragmentListBinding;
 import com.prokarma.reference.architecture.feature.search.list.ListViewModel;
+import com.prokarma.reference.architecture.model.Event;
 
 public class EventDetailsFragment extends Fragment {
     private FragmentDetailsBinding mBinding;
@@ -36,7 +37,8 @@ public class EventDetailsFragment extends Fragment {
             mBinding.setEvent(event);
         });
 
-        String keyword = getArguments() != null ? getArguments().getString("keyword") : "";
+        Event event = getArguments() != null ? (Event)getArguments().getSerializable("event") : null;
+        mDetailsViewModel.setEventData(event);
 
     }
 
