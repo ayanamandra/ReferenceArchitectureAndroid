@@ -3,11 +3,14 @@ package com.prokarma.reference.architecture.feature.search.list;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.BindingAdapter;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.feature.search.event_list.EventActions;
 import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
@@ -17,6 +20,8 @@ import com.prokarma.reference.architecture.networking.OnCallListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.navigation.Navigation;
 
 
 /**
@@ -45,8 +50,10 @@ public class ListViewModel extends ViewModel implements EventListener, OnCallLis
     }
 
     @Override
-    public void openEventDetail(String id) {
-
+    public void openEventDetail(View view, String id) {
+        Bundle bundle = new Bundle();
+        bundle.putString("event_id", id);
+        Navigation.findNavController(view).navigate(R.id.action_list_to_details, bundle);
     }
 
     @Override
