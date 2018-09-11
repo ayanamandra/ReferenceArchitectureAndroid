@@ -1,6 +1,8 @@
 package com.prokarma.reference.architecture.feature.home;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModel;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,10 +19,16 @@ public class HomeViewModel extends ViewModel {
 
     private String mSearchQuery;
     private String mSearchKeyword;
+    //TODO changes for unit testing
+    private NavigationInterface navigationInterface;
+    private Activity activity;
 
-    public HomeViewModel() {
+    public HomeViewModel(Activity activity ,NavigationInterface navigationInterface) {
         mSearchQuery = "";
         mSearchKeyword = "";
+        //TODO changes for unit testing
+        this.navigationInterface = navigationInterface;
+        this.activity = activity;
     }
 
     /**
@@ -32,6 +40,9 @@ public class HomeViewModel extends ViewModel {
         Bundle bundle = new Bundle();
         bundle.putString("keyword", mSearchKeyword);
         Navigation.findNavController(view).navigate(R.id.action_home_to_list, bundle);
+        // TODO tried these things but stuck in the middle
+//        Navigation.findNavController(activity,R.id.search_button).navigate(R.id.action_home_to_list, bundle);
+//        navigationInterface.findNavigationController(viewInterface,R.id.action_home_to_list,bundle);
     }
 
     public String getSearchQuery() {
