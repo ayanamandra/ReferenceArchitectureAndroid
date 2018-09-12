@@ -25,6 +25,10 @@
             android:name=".feature.search.event_list.EventListActivity"
             android:label="@string/title_activity_event_list"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD_wRcFni9W_twdJb7lhNcERKTdbEROdPY"/>
     </application>
 
 </manifest>
