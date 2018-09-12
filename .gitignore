@@ -99,6 +99,8 @@ obj/
 .idea/uiDesigner.xml
 .idea/navEditor.xml
 .idea/assetWizardSettings.xml
+.idea/markdown-navigator/profiles_settings.xml
+.idea/markdown-navigator.xml
 
 # OS-specific files
 .DS_Store
