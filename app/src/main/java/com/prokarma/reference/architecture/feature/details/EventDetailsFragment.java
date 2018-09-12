@@ -36,9 +36,7 @@ public class EventDetailsFragment extends Fragment implements OnMapReadyCallback
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false);
         mBinding.setLifecycleOwner(this);
-        SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
         return mBinding.getRoot();
     }
 
@@ -55,6 +53,14 @@ public class EventDetailsFragment extends Fragment implements OnMapReadyCallback
         Event event = getArguments() != null ? (Event)getArguments().getSerializable("event") : null;
         mDetailsViewModel.setEventData(event);
 
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     private void updateEventLocOnMap(Event event) {
@@ -78,5 +84,6 @@ public class EventDetailsFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        updateEventLocOnMap(mDetailsViewModel.getEvent().getValue());
     }
 }
