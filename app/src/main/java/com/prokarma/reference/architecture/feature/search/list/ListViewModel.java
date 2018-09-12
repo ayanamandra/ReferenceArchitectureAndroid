@@ -19,6 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+interface EventListener extends EventActions {
+    /*
+     * Extend with custom filters
+     */
+}
+
 /**
  * View model in charge of {@link Event} handling.
  */
@@ -27,10 +33,6 @@ public class ListViewModel extends ViewModel implements EventListener, OnCallLis
 
     public ListViewModel() {
 
-    }
-
-    public void fetchEvents(String keyword) {
-        ApplicationDataRepository.getSearchEventsNoRxJava(this, keyword);
     }
 
     @BindingAdapter({"bind:imageUrl"})
@@ -42,6 +44,18 @@ public class ListViewModel extends ViewModel implements EventListener, OnCallLis
                 .load(imageUrl)
                 .apply(options)
                 .into(view);
+    }
+
+    public MutableLiveData<List<Event>> getmEventsListLiveData() {
+        return mEventsListLiveData;
+    }
+
+    public void setmEventsListLiveData(MutableLiveData<List<Event>> mEventsListLiveData) {
+        this.mEventsListLiveData = mEventsListLiveData;
+    }
+
+    public void fetchEvents(String keyword) {
+        ApplicationDataRepository.getSearchEventsNoRxJava(this, keyword);
     }
 
     @Override
@@ -57,7 +71,7 @@ public class ListViewModel extends ViewModel implements EventListener, OnCallLis
             Log.d("ListViewModel", "Call Completed " + model);
             Embedded embedded = ((SearchEventsResponse) model).getEmbedded();
 
-            if (embedded != null) {
+            if (embedded != null && embedded.getEvents() != null) {
                 List<Event> eventList = embedded.getEvents();
                 getEvents().postValue(eventList);
             } else {
@@ -73,7 +87,7 @@ public class ListViewModel extends ViewModel implements EventListener, OnCallLis
 
     @Override
     public void onCallFailed(Throwable throwable) {
-        Log.e("ListViewModel", "Call Failed " + throwable);
+//        Log.e("ListViewModel", "Call Failed " + throwable);
         getEvents().postValue(new ArrayList<>());
     }
 
@@ -85,10 +99,4 @@ public class ListViewModel extends ViewModel implements EventListener, OnCallLis
         }
         return mEventsListLiveData;
     }
-}
-
-interface EventListener extends EventActions {
-    /*
-     * Extend with custom filters
-     */
 }
