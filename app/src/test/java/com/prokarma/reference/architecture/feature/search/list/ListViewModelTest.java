@@ -1,15 +1,20 @@
 package com.prokarma.reference.architecture.feature.search.list;
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.MutableLiveData;
+
 import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 import com.prokarma.reference.architecture.utils.TestUtil;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +22,9 @@ public class ListViewModelTest {
 
     private ListViewModel listViewModel;
     private Throwable throwable;
+
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Before
     public void setUp() throws Exception {
@@ -53,7 +61,7 @@ public class ListViewModelTest {
     @Test
     public void onCallCompletedWithEmbeddedNull() {
         Assert.assertNull(listViewModel.getmEventsListLiveData());
-        SearchEventsResponse  searchEventsResponse = new SearchEventsResponse();
+        SearchEventsResponse searchEventsResponse = new SearchEventsResponse();
         listViewModel.onCallCompleted(searchEventsResponse);
         Assert.assertNotNull(listViewModel.getmEventsListLiveData());
 
@@ -62,7 +70,7 @@ public class ListViewModelTest {
     @Test
     public void onCallCompletedwithNoEvents() {
         Assert.assertNull(listViewModel.getmEventsListLiveData());
-        SearchEventsResponse  searchEventsResponse = new SearchEventsResponse();
+        SearchEventsResponse searchEventsResponse = new SearchEventsResponse();
         Embedded embedded = new Embedded();
         searchEventsResponse.embedded = embedded;
         listViewModel.onCallCompleted(searchEventsResponse);
@@ -73,24 +81,24 @@ public class ListViewModelTest {
     @Test
     public void onCallCompleted() {
         Assert.assertNull(listViewModel.getmEventsListLiveData());
-        SearchEventsResponse  searchEventsResponse = new SearchEventsResponse();
-
+        SearchEventsResponse searchEventsResponse = new SearchEventsResponse();
         Embedded embedded = new Embedded();
 
         Event event = new Event();
-        List<Event> events= new ArrayList<>();
+        event.id = "123";
+        event.name = "fake event";
+
+        List<Event> events = new ArrayList<>();
 
         events.add(event);
-
         embedded.events = events;
-
         searchEventsResponse.embedded = embedded;
 
         listViewModel.onCallCompleted(searchEventsResponse);
-        Assert.assertNotNull(listViewModel.getmEventsListLiveData());
-        //TODO please review this, posted events should handle here
-//        Assert.assertEquals(searchEventsResponse.getEmbedded().getEvents(),listViewModel.getmEventsListLiveData().getValue().get(0));
 
+        Assert.assertNotNull(listViewModel.getmEventsListLiveData());
+
+        Assert.assertEquals(searchEventsResponse.getEmbedded().getEvents(), listViewModel.getmEventsListLiveData().getValue());
     }
 
 
@@ -112,7 +120,7 @@ public class ListViewModelTest {
         Event event = new Event();
 
         MutableLiveData<List<Event>> mEventsListLiveData = new MutableLiveData<>();
-        List<Event> events= new ArrayList<>();
+        List<Event> events = new ArrayList<>();
 
         events.add(event);
         mEventsListLiveData.postValue(events);
@@ -124,7 +132,7 @@ public class ListViewModelTest {
     public void getmEventsListLiveDataTest() {
         Event event = new Event();
         MutableLiveData<List<Event>> mEventsListLiveData = new MutableLiveData<>();
-        List<Event> events= new ArrayList<>();
+        List<Event> events = new ArrayList<>();
 
         events.add(event);
         mEventsListLiveData.postValue(events);
@@ -136,7 +144,7 @@ public class ListViewModelTest {
     public void setmEventsListLiveDataTest() {
         Event event = new Event();
         MutableLiveData<List<Event>> mEventsListLiveData = new MutableLiveData<>();
-        List<Event> events= new ArrayList<>();
+        List<Event> events = new ArrayList<>();
 
         events.add(event);
         mEventsListLiveData.postValue(events);
