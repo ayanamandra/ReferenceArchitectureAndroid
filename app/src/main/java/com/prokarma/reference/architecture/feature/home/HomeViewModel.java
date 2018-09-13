@@ -26,12 +26,12 @@ public class HomeViewModel extends ViewModel {
     /**
      * Search for related events to the given input.
      */
-    public void search(View view) {
+    public void search() {
         Log.d(TAG, "Search event triggered: query = " + mSearchQuery + " keyword: " + mSearchKeyword);
 
         Bundle bundle = new Bundle();
         bundle.putString("keyword", mSearchKeyword);
-        Navigation.findNavController(view).navigate(R.id.action_home_to_list, bundle);
+        //Navigation.findNavController(view).navigate(R.id.action_home_to_list, bundle);
     }
 
     public String getSearchQuery() {
