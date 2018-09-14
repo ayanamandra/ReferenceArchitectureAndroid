@@ -12,7 +12,7 @@ buildscript {
         // App dependencies
         constraintLayoutVersion = '1.1.2'
         supportLibraryVersion = '27.1.1'
-
+        dagger2Version = '2.15'
     }
     
     repositories {

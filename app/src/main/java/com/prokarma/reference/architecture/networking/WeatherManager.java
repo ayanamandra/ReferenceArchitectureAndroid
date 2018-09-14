@@ -11,16 +11,14 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.prokarma.reference.architecture.networking.WeatherService.PATH_DATE;
-import static com.prokarma.reference.architecture.networking.WeatherService.PATH_WOEID;
-
 public class WeatherManager extends NetworkManager {
     private static final String WEATHER_BASE_URL = "https://www.metaweather.com";
     private static final String LOCATION_SEARCH_URL = "/api/location/search/";
-    private static final String LOCATION_DAY_URL = "/api/location/{"+PATH_WOEID+"}/{"+PATH_DATE+"}/";
+    private static final String LOCATION_DAY_URL = "/api/location/";  //format: /api/location/(woeid)/(date)/
+    private static final String ICON_URL = "/static/img/weather/png/%s.png";
 
     private static WeatherManager instance = null;
-    private static TicketMasterService service = null;
+    private static WeatherService service = null;
     private OkHttpClient client;
 
     public static WeatherManager getInstance() {
@@ -43,18 +41,26 @@ public class WeatherManager extends NetworkManager {
                     .client(client)
                     .build();
 
-            service = retrofit.create(TicketMasterService.class);
+            service = retrofit.create(WeatherService.class);
         }
 
         return (T) service;
+    }
+
+    public static String getWeatherIconUrl(String iconAbbreviation){
+        return  String.format(WEATHER_BASE_URL +  ICON_URL,iconAbbreviation);
     }
 
     Call<List<WeatherLocation>> getLocationsByArea(String query) {
         return ((WeatherService) getRetroFitService()).getLocationsByArea(WEATHER_BASE_URL + LOCATION_SEARCH_URL, query);
     }
 
+    Call<List<WeatherLocation>> getLocationsByLatLng(String latitude, String longitude) {
+        return ((WeatherService) getRetroFitService()).getLocationsByLatLng(WEATHER_BASE_URL + LOCATION_SEARCH_URL, latitude+","+longitude);
+    }
+
     Call<List<WeatherReport>> getWeatherOnDay(int WOEID, String date) {
-        return ((WeatherService) getRetroFitService()).getLocationDay(WEATHER_BASE_URL + LOCATION_DAY_URL, WOEID, date);
+        return ((WeatherService) getRetroFitService()).getLocationDay(WEATHER_BASE_URL + LOCATION_DAY_URL + WOEID + "/" + date);
     }
 
 }

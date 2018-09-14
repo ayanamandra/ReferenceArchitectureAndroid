@@ -2,8 +2,9 @@ package com.prokarma.reference.architecture.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.prokarma.reference.architecture.networking.ApplicationDataRepository;
 
-public class WeatherReport {
+public class  WeatherReport {
     @SerializedName("id")
     @Expose
     public String id;  //Internal identifier for the forecast
@@ -60,5 +61,15 @@ public class WeatherReport {
     @Expose
     public float predictability;  //units: percentage.  Our interpretation of the level to which the forecasters agree with each other - 100% being a complete consensus.
 
+    public String getIconUrl(){
+        return ApplicationDataRepository.getWeatherIconUrl(weather_state_abbr);
+    }
 
+    public float getMinTempInFahrenheit(){
+        return min_temp * 9/5 + 32;
+    }
+
+    public float getMaxTempInFahrenheit(){
+        return max_temp * 9/5 + 32;
+    }
 }

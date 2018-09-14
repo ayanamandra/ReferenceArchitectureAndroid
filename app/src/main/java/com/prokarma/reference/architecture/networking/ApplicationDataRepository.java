@@ -63,9 +63,12 @@ public class ApplicationDataRepository {
         });
     }
 
-    public static void getDayWeatherReport(@Nullable final OnCallListener onCallListener, @Nullable String area, @Nullable String day) {
+    public static String getWeatherIconUrl(String abbreviation){
+        return WeatherManager.getWeatherIconUrl(abbreviation);
+    }
+    public static void getDayWeatherReport(@Nullable final OnCallListener onCallListener, @Nullable String latitude, @Nullable String longitude, @Nullable String day) {
         //Making locations call to identify the 'WOEID'(Where On Earth ID).
-        WeatherManager.getInstance().getLocationsByArea(area).enqueue(new Callback<List<WeatherLocation>>() {
+        WeatherManager.getInstance().getLocationsByLatLng(latitude, longitude).enqueue(new Callback<List<WeatherLocation>>() {
             @Override
             public void onResponse(Call<List<WeatherLocation>> call, Response<List<WeatherLocation>> response) {
                 List<WeatherLocation> locations = response.body();

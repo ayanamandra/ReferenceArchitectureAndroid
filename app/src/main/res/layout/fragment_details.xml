@@ -86,21 +86,31 @@
                 android:id="@+id/weather_max_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(report.max_temp)}"
+                android:text="@{@string/temperature_format(report.maxTempInFahrenheit)}"
                 tools:text="@string/sample_weather_max_temp"
                 android:textSize="16sp"
                 android:layout_below="@id/weather_title"
-                android:padding="@dimen/view_margin_small"/>
+                android:padding="@dimen/view_margin_small"
+                android:layout_marginStart="10dp"/>
             <TextView
                 android:id="@+id/weather_min_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(report.min_temp)}"
+                android:text="@{@string/temperature_format(report.minTempInFahrenheit)}"
                 tools:text="@string/sample_weather_min_temp"
                 android:textSize="16sp"
                 android:layout_below="@id/weather_title"
-                android:layout_toRightOf="@id/weather_max_temp"
+                android:layout_toEndOf="@id/weather_max_temp"
                 android:padding="@dimen/view_margin_small"/>
+            <ImageView
+                android:id="@+id/weather_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/weather_icon"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="30dp"
+                app:imageUrl="@{report.iconUrl}" />
         </RelativeLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

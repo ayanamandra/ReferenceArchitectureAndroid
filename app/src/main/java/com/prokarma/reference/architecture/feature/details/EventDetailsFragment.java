@@ -34,9 +34,7 @@ public class EventDetailsFragment extends Fragment implements OnMapReadyCallback
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false);
         mBinding.setLifecycleOwner(this);
-        SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
         return mBinding.getRoot();
     }
 
@@ -52,7 +50,10 @@ public class EventDetailsFragment extends Fragment implements OnMapReadyCallback
         });
 
         mDetailsViewModel.getWeatherReport().observe(this, (WeatherReport report) -> {
+            //Shows the report by
             mBinding.setReport(report);
+            mBinding.weatherReport.setVisibility(View.VISIBLE);
+            mBinding.weatherReport.animate().alpha(100);
         });
 
         Event event = getArguments() != null ? (Event)getArguments().getSerializable("event") : null;
@@ -62,7 +63,16 @@ public class EventDetailsFragment extends Fragment implements OnMapReadyCallback
 
     //Fetch weather report at event venu on that particular day
     private void updateWeatherInfo() {
+        mBinding.weatherReport.setVisibility(View.GONE);
         mDetailsViewModel.fetchWeatherReport();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     private void updateEventLocOnMap(Event event) {
@@ -86,5 +96,6 @@ public class EventDetailsFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        updateEventLocOnMap(mDetailsViewModel.getEvent().getValue());
     }
 }
