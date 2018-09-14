@@ -4,6 +4,10 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
+import com.prokarma.reference.architecture.model.WeatherLocation;
+import com.prokarma.reference.architecture.model.WeatherReport;
+
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -59,4 +63,40 @@ public class ApplicationDataRepository {
         });
     }
 
+    public static void getDayWeatherReport(@Nullable final OnCallListener onCallListener, @Nullable String area, @Nullable String day) {
+        //Making locations call to identify the 'WOEID'(Where On Earth ID).
+        WeatherManager.getInstance().getLocationsByArea(area).enqueue(new Callback<List<WeatherLocation>>() {
+            @Override
+            public void onResponse(Call<List<WeatherLocation>> call, Response<List<WeatherLocation>> response) {
+                List<WeatherLocation> locations = response.body();
+                Log.e(TAG, "Locations found: " + locations.size());
+                if(locations.size()>0){
+                    //Fetching weather report on that particular day for corresponding area (w.r.t WOEID)
+                    WeatherManager.getInstance().getWeatherOnDay(locations.get(0).woeid,day).enqueue(new Callback<List<WeatherReport>>() {
+                        @Override
+                        public void onResponse(Call<List<WeatherReport>> call, Response<List<WeatherReport>> response) {
+                            List<WeatherReport> reports = response.body();
+                            if (onCallListener != null) {
+                                onCallListener.onCallCompleted(reports);
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<List<WeatherReport>> call, Throwable throwable) {
+                            if (onCallListener != null) {
+                                onCallListener.onCallFailed(throwable);
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<WeatherLocation>> call, Throwable throwable) {
+                Log.e(TAG, throwable.getLocalizedMessage());
+                if (onCallListener != null) {
+                    onCallListener.onCallFailed(throwable);
+                }
+            }
+        });
+    }
 }

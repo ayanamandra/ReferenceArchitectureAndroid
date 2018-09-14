@@ -1,13 +1,11 @@
 package com.prokarma.reference.architecture.networking;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.prokarma.reference.architecture.model.SearchEventsResponse;
-import com.prokarma.reference.architecture.model.Weather.Location;
-import com.prokarma.reference.architecture.model.Weather.Report;
+import com.prokarma.reference.architecture.model.WeatherLocation;
+import com.prokarma.reference.architecture.model.WeatherReport;
 
 import java.util.List;
 
-import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -51,11 +49,11 @@ public class WeatherManager extends NetworkManager {
         return (T) service;
     }
 
-    Single<List<Location>> getLocationsByArea(String query) {
+    Call<List<WeatherLocation>> getLocationsByArea(String query) {
         return ((WeatherService) getRetroFitService()).getLocationsByArea(WEATHER_BASE_URL + LOCATION_SEARCH_URL, query);
     }
 
-    Single<List<Report>> getWeatherOnDay(String WOEID, String date) {
+    Call<List<WeatherReport>> getWeatherOnDay(int WOEID, String date) {
         return ((WeatherService) getRetroFitService()).getLocationDay(WEATHER_BASE_URL + LOCATION_DAY_URL, WOEID, date);
     }
 

@@ -1,9 +1,9 @@
-package com.prokarma.reference.architecture.model.Weather;
+package com.prokarma.reference.architecture.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Report {
+public class WeatherReport {
     @SerializedName("id")
     @Expose
     public String id;  //Internal identifier for the forecast

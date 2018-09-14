@@ -16,14 +16,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.databinding.FragmentDetailsBinding;
-import com.prokarma.reference.architecture.databinding.FragmentListBinding;
-import com.prokarma.reference.architecture.feature.search.list.ListViewModel;
 import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.Location;
+import com.prokarma.reference.architecture.model.WeatherReport;
 
 public class EventDetailsFragment extends Fragment implements OnMapReadyCallback{
     private FragmentDetailsBinding mBinding;
@@ -50,11 +48,21 @@ public class EventDetailsFragment extends Fragment implements OnMapReadyCallback
         mDetailsViewModel.getEvent().observe(this, (Event event) -> {
             mBinding.setEvent(event);
             updateEventLocOnMap(event);
+            updateWeatherInfo();
+        });
+
+        mDetailsViewModel.getWeatherReport().observe(this, (WeatherReport report) -> {
+            mBinding.setReport(report);
         });
 
         Event event = getArguments() != null ? (Event)getArguments().getSerializable("event") : null;
         mDetailsViewModel.setEventData(event);
 
+    }
+
+    //Fetch weather report at event venu on that particular day
+    private void updateWeatherInfo() {
+        mDetailsViewModel.fetchWeatherReport();
     }
 
     private void updateEventLocOnMap(Event event) {

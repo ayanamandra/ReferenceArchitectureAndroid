@@ -1,9 +1,9 @@
-package com.prokarma.reference.architecture.model.Weather;
+package com.prokarma.reference.architecture.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Location {
+public class WeatherLocation {
     @SerializedName("title")
     @Expose
     public String title;  //Name of the location

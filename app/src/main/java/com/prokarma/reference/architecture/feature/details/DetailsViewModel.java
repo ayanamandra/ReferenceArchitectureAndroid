@@ -2,28 +2,21 @@ package com.prokarma.reference.architecture.feature.details;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.databinding.BindingAdapter;
-import android.util.Log;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.prokarma.reference.architecture.feature.search.event_list.EventActions;
-import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
-import com.prokarma.reference.architecture.model.SearchEventsResponse;
+import com.prokarma.reference.architecture.model.WeatherReport;
 import com.prokarma.reference.architecture.networking.ApplicationDataRepository;
 import com.prokarma.reference.architecture.networking.OnCallListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 /**
  * View model in charge of {@link Event} handling.
  */
-public class DetailsViewModel extends ViewModel {
+public class DetailsViewModel extends ViewModel implements OnCallListener {
     private MutableLiveData<Event> mEventLiveData;
+    private MutableLiveData<WeatherReport> mWeatherReportLiveData;
 
     public DetailsViewModel() {
 
@@ -40,5 +33,32 @@ public class DetailsViewModel extends ViewModel {
             mEventLiveData = new MutableLiveData<>();
         }
         return mEventLiveData;
+    }
+
+    public MutableLiveData<WeatherReport> getWeatherReport() {
+
+        // Create a new Live data object if none exists.
+        if (mWeatherReportLiveData == null) {
+            mWeatherReportLiveData = new MutableLiveData<>();
+        }
+        return mWeatherReportLiveData;
+    }
+
+    public void fetchWeatherReport(){
+        ApplicationDataRepository.getDayWeatherReport(this, mEventLiveData.getValue().embedded.venues.get(0).name,"2018/09/15");
+    }
+
+    @Override
+    public void onCallCompleted(Object model) {
+        if(model != null){
+            List<WeatherReport> reports = (List<WeatherReport>) model;
+            getWeatherReport().setValue(reports.get(0));
+        }
+
+    }
+
+    @Override
+    public void onCallFailed(Throwable throwable) {
+
     }
 }

@@ -8,6 +8,9 @@
         <variable
             name="event"
             type="com.prokarma.reference.architecture.model.Event" />
+        <variable
+            name="report"
+            type="com.prokarma.reference.architecture.model.WeatherReport"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -58,8 +61,46 @@
             app:layout_constraintTop_toBottomOf="@id/detail_event_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/weather_report"
             tools:context=".app.MainActivity"
             />
+        <RelativeLayout
+            android:id="@+id/weather_report"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/map"
+            >
+            <TextView
+                android:id="@+id/weather_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/weather_forecast_title"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/view_margin_small"
+                android:padding="@dimen/view_margin_small"/>
+            <TextView
+                android:id="@+id/weather_max_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(report.max_temp)}"
+                tools:text="@string/sample_weather_max_temp"
+                android:textSize="16sp"
+                android:layout_below="@id/weather_title"
+                android:padding="@dimen/view_margin_small"/>
+            <TextView
+                android:id="@+id/weather_min_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(report.min_temp)}"
+                tools:text="@string/sample_weather_min_temp"
+                android:textSize="16sp"
+                android:layout_below="@id/weather_title"
+                android:layout_toRightOf="@id/weather_max_temp"
+                android:padding="@dimen/view_margin_small"/>
+        </RelativeLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

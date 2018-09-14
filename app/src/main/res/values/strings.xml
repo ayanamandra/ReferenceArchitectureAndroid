@@ -16,4 +16,7 @@
     <string name="sample_event_location">Denver, CO</string>
 
     <string name="location_text">%s, %s</string>
+    <string name="weather_forecast_title">Weather Forecast</string>
+    <string name="sample_weather_max_temp">82F</string>
+    <string name="sample_weather_min_temp">77F</string>
 </resources>
