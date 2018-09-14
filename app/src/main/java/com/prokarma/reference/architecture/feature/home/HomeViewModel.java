@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.prokarma.reference.architecture.R;
+import com.prokarma.reference.architecture.app.NavigationManager;
 
 import androidx.navigation.Navigation;
 
@@ -31,7 +32,7 @@ public class HomeViewModel extends ViewModel {
 
         Bundle bundle = new Bundle();
         bundle.putString("keyword", mSearchKeyword);
-        //Navigation.findNavController(view).navigate(R.id.action_home_to_list, bundle);
+        NavigationManager.getInstance().getNavController().navigate(R.id.action_home_to_list, bundle);
     }
 
     public String getSearchQuery() {
