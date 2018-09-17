@@ -2,15 +2,10 @@ package com.prokarma.reference.architecture.feature.home;
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModel;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-
 import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.app.NavigationManager;
-
-import androidx.navigation.Navigation;
 
 /**
  * A view model for search related support.

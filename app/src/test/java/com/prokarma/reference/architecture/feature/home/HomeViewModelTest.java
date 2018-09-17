@@ -35,7 +35,7 @@ public class HomeViewModelTest {
 
     @Test
     public void search() {
-        homeViewModel.search(button);
+        homeViewModel.search();
     }
 
     @Test
