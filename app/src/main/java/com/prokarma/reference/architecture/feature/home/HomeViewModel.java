@@ -1,5 +1,6 @@
 package com.prokarma.reference.architecture.feature.home;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,17 +8,21 @@ import android.view.View;
 
 import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.app.NavigationManager;
+import com.prokarma.reference.architecture.networking.ApplicationDataRepository;
+import com.prokarma.reference.architecture.networking.OnCallListener;
 
 import androidx.navigation.Navigation;
 
 /**
  * A view model for search related support.
  */
-public class HomeViewModel extends ViewModel {
+public class HomeViewModel extends ViewModel implements OnCallListener {
     private final String TAG = "HomeViewModel";
 
     private String mSearchQuery;
     private String mSearchKeyword;
+
+    private MutableLiveData<String> mSearchHistory;
 
     public HomeViewModel() {
         mSearchQuery = "";
@@ -35,6 +40,10 @@ public class HomeViewModel extends ViewModel {
         NavigationManager.getInstance().getNavController().navigate(R.id.action_home_to_list, bundle);
     }
 
+    public void fetchUserSearchHistory() {
+        ApplicationDataRepository.getUserSearchHistory(this);
+    }
+
     public String getSearchQuery() {
         return mSearchQuery;
     }
@@ -49,5 +58,28 @@ public class HomeViewModel extends ViewModel {
 
     public void setSearchKeyword(String searchKeyword) {
         mSearchKeyword = searchKeyword;
+    }
+
+    public MutableLiveData<String> getSearchHistory() {
+        if (mSearchHistory == null) {
+            mSearchHistory = new MutableLiveData<>();
+        }
+
+        return mSearchHistory;
+    }
+
+    public void setSearchHistory(MutableLiveData<String> mSearchHistory) {
+        this.mSearchHistory = mSearchHistory;
+    }
+
+    @Override
+    public void onCallCompleted(Object model) {
+        getSearchHistory().postValue((String) model);
+    }
+
+    @Override
+    public void onCallFailed(Throwable throwable) {
+        Log.e(TAG, "Call Failed " + throwable);
+        getSearchHistory().postValue(new String());
     }
 }

@@ -59,4 +59,8 @@ public class ApplicationDataRepository {
         });
     }
 
+
+    public static void getUserSearchHistory(@Nullable final OnCallListener onCallListener){
+        onCallListener.onCallCompleted("Testing search history");
+    }
 }
