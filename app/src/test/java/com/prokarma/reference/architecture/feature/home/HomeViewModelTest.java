@@ -1,32 +1,17 @@
 package com.prokarma.reference.architecture.feature.home;
 
-import android.content.Context;
-import android.widget.Button;
-
-import com.prokarma.reference.architecture.app.MainActivity;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
-
 public class HomeViewModelTest {
 
-    private Context context;
-    private MainActivity activity;
-    private NavigationInterface navigationInterface;
-    private Button button;
     private HomeViewModel homeViewModel;
 
     @Before
     public void setUp() throws Exception {
-        context = mock(Context.class);
-        activity = mock(MainActivity.class);
-        navigationInterface = mock(NavigationInterface.class);
-        button = mock(Button.class);
-        homeViewModel = new HomeViewModel(activity, navigationInterface);
+        homeViewModel = new HomeViewModel();
     }
 
     @After
