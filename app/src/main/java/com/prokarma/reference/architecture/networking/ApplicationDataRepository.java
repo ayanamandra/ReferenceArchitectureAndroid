@@ -1,8 +1,11 @@
 package com.prokarma.reference.architecture.networking;
 
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.prokarma.reference.architecture.data.SharedPreferencesConstants;
+import com.prokarma.reference.architecture.data.SharedPreferencesManager;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -59,8 +62,13 @@ public class ApplicationDataRepository {
         });
     }
 
+    public static void updateUserSearchHistory(String searchHistory) {
+        SharedPreferencesManager.getInstance().getEditor().putString(SharedPreferencesConstants.KEY_SEARCH_HISTORY, searchHistory).apply();
+    }
 
-    public static void getUserSearchHistory(@Nullable final OnCallListener onCallListener){
-        onCallListener.onCallCompleted("Testing search history");
+    public static void getUserSearchHistory(@Nullable final OnCallListener onCallListener) {
+        if (onCallListener != null) {
+            onCallListener.onCallCompleted(SharedPreferencesManager.getInstance().getSharedPreferences().getString(SharedPreferencesConstants.KEY_SEARCH_HISTORY, ""));
+        }
     }
 }

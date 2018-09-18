@@ -2,6 +2,7 @@ package com.prokarma.reference.architecture.feature.home;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,11 +38,16 @@ public class HomeViewModel extends ViewModel implements OnCallListener {
 
         Bundle bundle = new Bundle();
         bundle.putString("keyword", mSearchKeyword);
+        updateUserSearchHistory(mSearchKeyword);
         NavigationManager.getInstance().getNavController().navigate(R.id.action_home_to_list, bundle);
     }
 
     public void fetchUserSearchHistory() {
         ApplicationDataRepository.getUserSearchHistory(this);
+    }
+
+    public void updateUserSearchHistory(final String searchHistory) {
+        ApplicationDataRepository.updateUserSearchHistory(searchHistory);
     }
 
     public String getSearchQuery() {
