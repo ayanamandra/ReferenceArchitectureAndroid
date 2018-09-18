@@ -3,9 +3,14 @@ package com.prokarma.reference.architecture.feature.search.list;
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.MutableLiveData;
 
+import com.prokarma.reference.architecture.di.AppComponent;
+import com.prokarma.reference.architecture.di.AppModule;
+import com.prokarma.reference.architecture.di.Injection;
+import com.prokarma.reference.architecture.feature.home.HomeViewModel;
 import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
+import com.prokarma.reference.architecture.networking.ApplicationDataRepository;
 import com.prokarma.reference.architecture.utils.TestUtil;
 
 import org.junit.After;
@@ -18,21 +23,35 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import dagger.Component;
+
 public class ListViewModelTest {
 
-    private ListViewModel listViewModel;
+    @Singleton
+    @Component(modules = {AppModule.class})
+    public interface TestComponent extends AppComponent {
+        void inject(ListViewModelTest listViewModelTest);
+    }
+
+
     private Throwable throwable;
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
+    @Inject
+    ListViewModel listViewModel;
+
     @Before
     public void setUp() throws Exception {
         TestUtil.setupEnvironment();
-        listViewModel = new ListViewModel();
+//        ListViewModelTest.TestComponent listViewModelTest = Dagger
+//        Injection.create().getAppComponent().inject(this);
         MockitoAnnotations.initMocks(this);
         throwable = new Throwable();
-
     }
 
     @After

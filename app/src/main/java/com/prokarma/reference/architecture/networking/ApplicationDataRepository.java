@@ -6,7 +6,10 @@ import android.util.Log;
 
 import com.prokarma.reference.architecture.data.SharedPreferencesConstants;
 import com.prokarma.reference.architecture.data.SharedPreferencesManager;
+import com.prokarma.reference.architecture.di.Injection;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
+
+import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -18,8 +21,16 @@ import retrofit2.Response;
 public class ApplicationDataRepository {
     private static final String TAG = "AppDataRepository";
 
-    public static void getSearchEvents(@Nullable final OnCallListener onCallListener, @Nullable String keyword) {
-        TicketMasterManager.getInstance().getEvents(keyword)
+    @Inject
+    TicketMasterManager ticketMasterManager;
+
+    @Inject
+    public ApplicationDataRepository() {
+        Injection.create().getAppComponent().inject(this);
+    }
+
+    public void getSearchEvents(@Nullable final OnCallListener onCallListener, @Nullable String keyword) {
+        ticketMasterManager.getEvents(keyword)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<SearchEventsResponse>() {
@@ -41,8 +52,8 @@ public class ApplicationDataRepository {
                 });
     }
 
-    public static void getSearchEventsNoRxJava(@Nullable final OnCallListener onCallListener, @Nullable String keyword) {
-        TicketMasterManager.getInstance().getEventsNoRxJava(keyword).enqueue(new Callback<SearchEventsResponse>() {
+    public void getSearchEventsNoRxJava(@Nullable final OnCallListener onCallListener, @Nullable String keyword) {
+        ticketMasterManager.getEventsNoRxJava(keyword).enqueue(new Callback<SearchEventsResponse>() {
             @Override
             public void onResponse(Call<SearchEventsResponse> call, Response<SearchEventsResponse> response) {
                 SearchEventsResponse searchEventsResponse = response.body();

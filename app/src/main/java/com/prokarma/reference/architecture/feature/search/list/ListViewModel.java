@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.prokarma.reference.architecture.di.Injection;
 import com.prokarma.reference.architecture.feature.search.event_list.EventActions;
 import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
@@ -17,6 +18,8 @@ import com.prokarma.reference.architecture.networking.OnCallListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 
 interface EventListener extends EventActions {
@@ -31,8 +34,11 @@ interface EventListener extends EventActions {
 public class ListViewModel extends ViewModel implements EventListener, OnCallListener {
     private MutableLiveData<List<Event>> mEventsListLiveData;
 
-    public ListViewModel() {
+    @Inject
+    ApplicationDataRepository applicationDataRepository;
 
+    public ListViewModel() {
+        Injection.create().getAppComponent().inject(this);
     }
 
     @BindingAdapter({"bind:imageUrl"})
@@ -55,7 +61,7 @@ public class ListViewModel extends ViewModel implements EventListener, OnCallLis
     }
 
     public void fetchEvents(String keyword) {
-        ApplicationDataRepository.getSearchEventsNoRxJava(this, keyword);
+        applicationDataRepository.getSearchEventsNoRxJava(this, keyword);
     }
 
     @Override
