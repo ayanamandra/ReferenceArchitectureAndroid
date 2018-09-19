@@ -1,8 +1,11 @@
 package com.prokarma.reference.architecture.networking;
 
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.prokarma.reference.architecture.data.SharedPreferencesConstants;
+import com.prokarma.reference.architecture.data.SharedPreferencesManager;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 import com.prokarma.reference.architecture.model.WeatherLocation;
 import com.prokarma.reference.architecture.model.WeatherReport;
@@ -73,9 +76,9 @@ public class ApplicationDataRepository {
             public void onResponse(Call<List<WeatherLocation>> call, Response<List<WeatherLocation>> response) {
                 List<WeatherLocation> locations = response.body();
                 Log.e(TAG, "Locations found: " + locations.size());
-                if(locations.size()>0){
+                if (locations.size() > 0) {
                     //Fetching weather report on that particular day for corresponding area (w.r.t WOEID)
-                    WeatherManager.getInstance().getWeatherOnDay(locations.get(0).woeid,day).enqueue(new Callback<List<WeatherReport>>() {
+                    WeatherManager.getInstance().getWeatherOnDay(locations.get(0).woeid, day).enqueue(new Callback<List<WeatherReport>>() {
                         @Override
                         public void onResponse(Call<List<WeatherReport>> call, Response<List<WeatherReport>> response) {
                             List<WeatherReport> reports = response.body();
@@ -83,6 +86,7 @@ public class ApplicationDataRepository {
                                 onCallListener.onCallCompleted(reports);
                             }
                         }
+
                         @Override
                         public void onFailure(Call<List<WeatherReport>> call, Throwable throwable) {
                             if (onCallListener != null) {
@@ -101,5 +105,15 @@ public class ApplicationDataRepository {
                 }
             }
         });
+    }
+
+    public static void updateUserSearchHistory(String searchHistory) {
+        SharedPreferencesManager.getInstance().getEditor().putString(SharedPreferencesConstants.KEY_SEARCH_HISTORY, searchHistory).apply();
+    }
+
+    public static void getUserSearchHistory(@Nullable final OnCallListener onCallListener) {
+        if (onCallListener != null) {
+            onCallListener.onCallCompleted(SharedPreferencesManager.getInstance().getSharedPreferences().getString(SharedPreferencesConstants.KEY_SEARCH_HISTORY, ""));
+        }
     }
 }
