@@ -21,7 +21,7 @@ public class SearchEventsTest {
     }
 
     private SearchEventsResponse searchEvents() {
-        Single<SearchEventsResponse> call = NetworkManager.getInstance().getEvents();
+        Single<SearchEventsResponse> call = TicketMasterManager.getInstance().getEvents();
 
         SearchEventsResponse response = call.blockingGet();
         Assert.assertNotNull(response);
@@ -32,7 +32,7 @@ public class SearchEventsTest {
     }
 
     private SearchEventsResponse searchEvents(String keyword) {
-        Single<SearchEventsResponse> call = NetworkManager.getInstance().getEvents(keyword);
+        Single<SearchEventsResponse> call = TicketMasterManager.getInstance().getEvents(keyword);
 
         SearchEventsResponse response = call.blockingGet();
         Assert.assertNotNull(response);
