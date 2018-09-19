@@ -4,13 +4,11 @@ import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.prokarma.reference.architecture.di.AppComponent;
-import com.prokarma.reference.architecture.di.AppModule;
 import com.prokarma.reference.architecture.di.Injection;
-import com.prokarma.reference.architecture.feature.home.HomeViewModel;
+import com.prokarma.reference.architecture.di.TestModule;
 import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
-import com.prokarma.reference.architecture.networking.ApplicationDataRepository;
 import com.prokarma.reference.architecture.utils.TestUtil;
 
 import org.junit.After;
@@ -30,32 +28,27 @@ import dagger.Component;
 
 public class ListViewModelTest {
 
-    @Singleton
-    @Component(modules = {AppModule.class})
-    public interface TestComponent extends AppComponent {
-        void inject(ListViewModelTest listViewModelTest);
-    }
-
-
-    private Throwable throwable;
-
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
-
     @Inject
     ListViewModel listViewModel;
 
+    private Throwable throwable;
+
     @Before
-    public void setUp() throws Exception {
-        TestUtil.setupEnvironment();
-//        ListViewModelTest.TestComponent listViewModelTest = Dagger
-//        Injection.create().getAppComponent().inject(this);
+    public void setUp() {
+//        TestUtil.setupEnvironment();
+        TestComponent testComponent = DaggerListViewModelTest_TestComponent.builder().testModule(new TestModule())
+                .build();
+
+        Injection.create().setAppComponent(testComponent);
+        testComponent.inject(this);
         MockitoAnnotations.initMocks(this);
         throwable = new Throwable();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         throwable = null;
         listViewModel = null;
     }
@@ -177,4 +170,11 @@ public class ListViewModelTest {
         Assert.assertNotNull(throwable);
         Assert.assertNotNull(listViewModel);
     }
+
+    @Singleton
+    @Component(modules = {TestModule.class})
+    interface TestComponent extends AppComponent {
+        void inject(ListViewModelTest test);
+    }
+
 }

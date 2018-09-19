@@ -8,10 +8,10 @@ import com.prokarma.reference.architecture.networking.NetworkManager;
 import com.prokarma.reference.architecture.networking.TicketMasterManager;
 
 public class TestUtil {
-    public static void setupEnvironment() {
-        TicketMasterManager.getInstance().getRetroFitService();
-        setSharedPreferences();
-    }
+//    public static void setupEnvironment() {
+//        TicketMasterManager.getInstance().getRetroFitService();
+//        setSharedPreferences();
+//    }
 
     //TODO: Remove hardcoded string when we make a preference helper class
     public static void setSharedPreferences() {

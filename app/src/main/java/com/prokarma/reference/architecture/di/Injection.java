@@ -20,4 +20,7 @@ public class Injection {
         return appComponent;
     }
 
+    public void setAppComponent(AppComponent appComponent) {
+        this.appComponent = appComponent;
+    }
 }
