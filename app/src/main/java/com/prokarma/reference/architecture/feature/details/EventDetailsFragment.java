@@ -23,10 +23,9 @@ import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.Location;
 import com.prokarma.reference.architecture.model.WeatherReport;
 
-public class EventDetailsFragment extends Fragment implements OnMapReadyCallback{
+public class EventDetailsFragment extends Fragment {
     private FragmentDetailsBinding mBinding;
     private DetailsViewModel mDetailsViewModel;
-    private float DEFAULT_ZOOM = 10;
     private GoogleMap mMap = null;
 
     @Override
@@ -45,15 +44,11 @@ public class EventDetailsFragment extends Fragment implements OnMapReadyCallback
 
         mDetailsViewModel.getEvent().observe(this, (Event event) -> {
             mBinding.setEvent(event);
-            updateEventLocOnMap(event);
-            updateWeatherInfo();
         });
 
         mDetailsViewModel.getWeatherReport().observe(this, (WeatherReport report) -> {
-            //Shows the report by
+            //Shows weather report
             mBinding.setReport(report);
-            mBinding.weatherReport.setVisibility(View.VISIBLE);
-            mBinding.weatherReport.animate().alpha(100);
         });
 
         Event event = getArguments() != null ? (Event)getArguments().getSerializable("event") : null;
@@ -61,41 +56,15 @@ public class EventDetailsFragment extends Fragment implements OnMapReadyCallback
 
     }
 
-    //Fetch weather report at event venu on that particular day
-    private void updateWeatherInfo() {
-        mBinding.weatherReport.setVisibility(View.GONE);
-        mDetailsViewModel.fetchWeatherReport();
-    }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-    }
-
-    private void updateEventLocOnMap(Event event) {
-        if(event.embedded.venues.size() > 0 && mMap != null){
-            //Updates event location when map is ready.
-            Location eventLocation = event.embedded.venues.get(0).location;
-            LatLng eventLatLng = new LatLng(Double.valueOf(eventLocation.latitude),
-                    Double.valueOf(eventLocation.longitude));
-            CameraUpdate moveCamera = CameraUpdateFactory.newLatLngZoom(eventLatLng,
-                    DEFAULT_ZOOM);
-            mMap.moveCamera(moveCamera);
-
-            mMap.addMarker(new MarkerOptions().position(eventLatLng));
-        }
+        mapFragment.getMapAsync(mDetailsViewModel);
     }
 
     DetailsViewModel createViewModel() {
         return ViewModelProviders.of(this).get(DetailsViewModel.class);
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        updateEventLocOnMap(mDetailsViewModel.getEvent().getValue());
     }
 }

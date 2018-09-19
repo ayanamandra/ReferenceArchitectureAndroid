@@ -1,10 +1,12 @@
 package com.prokarma.reference.architecture.model;
 
+import android.databinding.BaseObservable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.prokarma.reference.architecture.networking.ApplicationDataRepository;
 
-public class  WeatherReport {
+public class  WeatherReport extends BaseObservable {
     @SerializedName("id")
     @Expose
     public String id;  //Internal identifier for the forecast

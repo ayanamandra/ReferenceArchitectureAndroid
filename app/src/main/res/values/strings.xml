@@ -21,4 +21,5 @@
     <string name="sample_weather_min_temp">77F</string>
     <string name="temperature_format">%1.0fF</string>
     <string name="weather_icon">weather icon</string>
+    <string name="no_forecast_information_available">No forecast information available</string>
 </resources>
