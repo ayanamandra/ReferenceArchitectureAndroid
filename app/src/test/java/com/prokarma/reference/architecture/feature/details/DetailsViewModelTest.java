@@ -1,15 +1,20 @@
-package com.prokarma.reference.architecture.feature.search.list;
+package com.prokarma.reference.architecture.feature.details;
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.MutableLiveData;
 
+import com.prokarma.reference.architecture.app.MainActivity;
 import com.prokarma.reference.architecture.di.AppComponent;
+import com.prokarma.reference.architecture.di.AppModule;
 import com.prokarma.reference.architecture.di.Injection;
 import com.prokarma.reference.architecture.di.TestModule;
+import com.prokarma.reference.architecture.feature.search.list.ListViewModel;
 import com.prokarma.reference.architecture.model.Embedded;
+import com.prokarma.reference.architecture.model.EmbeddedEvents;
 import com.prokarma.reference.architecture.model.Event;
+import com.prokarma.reference.architecture.model.Location;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
-import com.prokarma.reference.architecture.utils.TestUtil;
+import com.prokarma.reference.architecture.model.Venue;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -25,20 +30,23 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import dagger.Module;
+import dagger.Provides;
 
-public class ListViewModelTest {
+public class DetailsViewModelTest {
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
     @Inject
-    ListViewModel listViewModel;
+    DetailsViewModel detailsViewModel;
 
     private Throwable throwable;
 
     @Before
     public void setUp() {
 //        TestUtil.setupEnvironment();
-        TestComponent testComponent = DaggerListViewModelTest_TestComponent.builder().testModule(new TestModule())
+        TestComponent testComponent = DaggerDetailsViewModelTest_TestComponent.builder().testModule(new TestModule())
                 .build();
 
         Injection.create().setAppComponent(testComponent);
@@ -50,131 +58,42 @@ public class ListViewModelTest {
     @After
     public void tearDown() {
         throwable = null;
-        listViewModel = null;
     }
 
     @Test
-    public void loadImage() {
-        listViewModel.getEvents();
+    public void getEvent() {
+        Assert.assertNotNull(detailsViewModel.getEvent());
     }
 
     @Test
-    public void openEventDetail() {
-    }
+    public void setEventData() {
+        Event actualEvent = new Event();
+        actualEvent.id = "1kk8v4a_GA2UASi";
+        actualEvent.name = "Paul McCartney - Freshen Up";
+        actualEvent.url = "https://www.ticketmaster.com/paul-mccartney-freshen-up-phoenix-arizona-06-26-2019/event/190055259FD85CEC";
+        actualEvent.embedded = new EmbeddedEvents();
 
-    @Test
-    public void onCallCompletedWithNullResponse() {
-        Assert.assertNull(listViewModel.getmEventsListLiveData());
-        Object object = null;
-        listViewModel.onCallCompleted(object);
-        Assert.assertNotNull(listViewModel.getmEventsListLiveData());
-    }
+        List<Venue> venues = new ArrayList<>();
+        Venue venue1 = new Venue();
+        Location location = new Location();
+        location.longitude = "-112.071313";
+        location.latitude = "33.445899";
+        venue1.location = location;
+        venues.add(venue1);
+        actualEvent.embedded.venues = venues;
 
-    @Test
-    public void onCallCompletedWithEmbeddedNull() {
-        Assert.assertNull(listViewModel.getmEventsListLiveData());
-        SearchEventsResponse searchEventsResponse = new SearchEventsResponse();
-        listViewModel.onCallCompleted(searchEventsResponse);
-        Assert.assertNotNull(listViewModel.getmEventsListLiveData());
 
-    }
+        detailsViewModel.setEventData(actualEvent);
+        Assert.assertSame("event assigned correctly", actualEvent, detailsViewModel.getEvent().getValue());
 
-    @Test
-    public void onCallCompletedwithNoEvents() {
-        Assert.assertNull(listViewModel.getmEventsListLiveData());
-        SearchEventsResponse searchEventsResponse = new SearchEventsResponse();
-        Embedded embedded = new Embedded();
-        searchEventsResponse.embedded = embedded;
-        listViewModel.onCallCompleted(searchEventsResponse);
-        Assert.assertNotNull(listViewModel.getmEventsListLiveData());
 
     }
 
-    @Test
-    public void onCallCompleted() {
-        Assert.assertNull(listViewModel.getmEventsListLiveData());
-        SearchEventsResponse searchEventsResponse = new SearchEventsResponse();
-        Embedded embedded = new Embedded();
-
-        Event event = new Event();
-        event.id = "123";
-        event.name = "fake event";
-
-        List<Event> events = new ArrayList<>();
-
-        events.add(event);
-        embedded.events = events;
-        searchEventsResponse.embedded = embedded;
-
-        listViewModel.onCallCompleted(searchEventsResponse);
-
-        Assert.assertNotNull(listViewModel.getmEventsListLiveData());
-
-        Assert.assertEquals(searchEventsResponse.getEmbedded().getEvents(), listViewModel.getmEventsListLiveData().getValue());
-    }
-
-
-    @Test
-    public void onCallFailed() {
-        Assert.assertNull(listViewModel.getmEventsListLiveData());
-        listViewModel.onCallFailed(throwable);
-        Assert.assertNotNull(listViewModel.getmEventsListLiveData());
-    }
-
-    @Test
-    public void getEventsWithNoEvents() {
-        listViewModel.getEvents().postValue(null);
-        Assert.assertNotNull(listViewModel.getmEventsListLiveData());
-    }
-
-    @Test
-    public void getEventsWithValidEvents() {
-        Event event = new Event();
-
-        MutableLiveData<List<Event>> mEventsListLiveData = new MutableLiveData<>();
-        List<Event> events = new ArrayList<>();
-
-        events.add(event);
-        mEventsListLiveData.postValue(events);
-        listViewModel.setmEventsListLiveData(mEventsListLiveData);
-        Assert.assertNotNull(listViewModel.getmEventsListLiveData());
-    }
-
-    @Test
-    public void getmEventsListLiveDataTest() {
-        Event event = new Event();
-        MutableLiveData<List<Event>> mEventsListLiveData = new MutableLiveData<>();
-        List<Event> events = new ArrayList<>();
-
-        events.add(event);
-        mEventsListLiveData.postValue(events);
-        listViewModel.setmEventsListLiveData(mEventsListLiveData);
-        Assert.assertEquals(listViewModel.getmEventsListLiveData(), mEventsListLiveData);
-    }
-
-    @Test
-    public void setmEventsListLiveDataTest() {
-        Event event = new Event();
-        MutableLiveData<List<Event>> mEventsListLiveData = new MutableLiveData<>();
-        List<Event> events = new ArrayList<>();
-
-        events.add(event);
-        mEventsListLiveData.postValue(events);
-        listViewModel.setmEventsListLiveData(mEventsListLiveData);
-        Assert.assertEquals(listViewModel.getmEventsListLiveData(), mEventsListLiveData);
-    }
-
-
-    @Test
-    public void onCleared() {
-        Assert.assertNotNull(throwable);
-        Assert.assertNotNull(listViewModel);
-    }
 
     @Singleton
     @Component(modules = {TestModule.class})
     interface TestComponent extends AppComponent {
-        void inject(ListViewModelTest test);
+        void inject(DetailsViewModelTest test);
     }
 
 }

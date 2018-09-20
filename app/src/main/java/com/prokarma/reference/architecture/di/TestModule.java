@@ -1,5 +1,6 @@
 package com.prokarma.reference.architecture.di;
 
+import com.prokarma.reference.architecture.feature.details.DetailsViewModel;
 import com.prokarma.reference.architecture.feature.search.list.ListViewModel;
 
 import javax.inject.Singleton;
@@ -13,5 +14,11 @@ public class TestModule extends AppModule {
     @Singleton
     ListViewModel provideListViewModel() {
         return new ListViewModel();
+    }
+
+    @Provides
+    @Singleton
+    DetailsViewModel provideDetailsViewModel() {
+        return new DetailsViewModel();
     }
 }

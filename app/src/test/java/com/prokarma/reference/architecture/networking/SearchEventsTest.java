@@ -2,8 +2,6 @@ package com.prokarma.reference.architecture.networking;
 
 import com.prokarma.reference.architecture.di.AppComponent;
 import com.prokarma.reference.architecture.di.TestModule;
-import com.prokarma.reference.architecture.feature.search.list.DaggerListViewModelTest_TestComponent;
-import com.prokarma.reference.architecture.feature.search.list.ListViewModelTest;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 import com.prokarma.reference.architecture.utils.TestUtil;
 

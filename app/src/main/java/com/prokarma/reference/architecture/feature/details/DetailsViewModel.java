@@ -40,6 +40,10 @@ public class DetailsViewModel extends ViewModel implements OnMapReadyCallback {
     }
 
     public void setEventData(Event mEvent){
+        // Create a new Live data object if none exists.
+        if (mEventLiveData == null) {
+            mEventLiveData = new MutableLiveData<>();
+        }
         mEventLiveData.setValue(mEvent);
         updateEventLocOnMap();
     }
