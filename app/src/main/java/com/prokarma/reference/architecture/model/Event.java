@@ -3,9 +3,10 @@ package com.prokarma.reference.architecture.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Event {
+public class Event implements Serializable{
 
     @SerializedName("name")
     @Expose

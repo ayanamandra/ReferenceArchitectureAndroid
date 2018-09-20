@@ -48,7 +48,7 @@ public class SearchEventsTest {
         return response;
     }
 
-        private SearchEventsResponse searchEvents(String keyword) {
+    private SearchEventsResponse searchEvents(String keyword) {
         Single<SearchEventsResponse> call = applicationDataRepository.ticketMasterManager.getEvents(keyword);
 
         SearchEventsResponse response = call.blockingGet();
