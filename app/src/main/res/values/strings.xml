@@ -16,4 +16,10 @@
     <string name="sample_event_location">Denver, CO</string>
 
     <string name="location_text">%s, %s</string>
+    <string name="weather_forecast_title">Weather Forecast</string>
+    <string name="sample_weather_max_temp">82F</string>
+    <string name="sample_weather_min_temp">77F</string>
+    <string name="temperature_format">%1.0fF</string>
+    <string name="weather_icon">weather icon</string>
+    <string name="no_forecast_information_available">No forecast information available</string>
 </resources>

@@ -8,6 +8,7 @@ import com.prokarma.reference.architecture.networking.NetworkManager;
 import com.prokarma.reference.architecture.networking.TicketMasterManager;
 
 public class TestUtil {
+
 //    public static void setupEnvironment() {
 //        TicketMasterManager.getInstance().getRetroFitService();
 //        setSharedPreferences();
