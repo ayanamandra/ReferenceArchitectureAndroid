@@ -1,7 +1,10 @@
 package com.prokarma.reference.architecture.networking;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.prokarma.reference.architecture.di.Injection;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
+
+import javax.inject.Inject;
 
 import io.reactivex.Single;
 import okhttp3.OkHttpClient;
@@ -14,17 +17,8 @@ public class TicketMasterManager extends NetworkManager {
     private static final String TICKETMASTER_BASE_URL = "https://app.ticketmaster.com/";
     private static final String TICKETMASTER_URL = "https://app.ticketmaster.com/discovery/v2/events.json";
 
-    private static TicketMasterManager instance = null;
     private static TicketMasterService service = null;
     private OkHttpClient client;
-
-    public static TicketMasterManager getInstance() {
-        if (instance == null) {
-            instance = new TicketMasterManager();
-        }
-
-        return instance;
-    }
 
     @Override
     public <T> T getRetroFitService() {
