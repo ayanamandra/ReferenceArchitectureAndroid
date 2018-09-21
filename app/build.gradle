@@ -31,9 +31,9 @@ android {
     lintOptions {
         lintConfig file("$project.rootDir/tools/rules-lint.xml")
         htmlOutput file("$project.buildDir/outputs/lint/lint.html")
-        warningsAsErrors false
+        warningsAsErrors true
         xmlReport false
-//        abortOnError false
+        abortOnError false
     }
 }
 
