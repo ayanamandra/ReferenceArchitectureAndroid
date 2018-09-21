@@ -84,4 +84,5 @@ dependencies {
     testImplementation "android.arch.core:core-testing:1.1.1"
     androidTestImplementation "android.arch.core:core-testing:1.1.1"
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    testImplementation 'com.android.support.test:runner:0.3'
 }
