@@ -23,6 +23,9 @@ public class HomeViewModel extends ViewModel implements OnCallListener {
     @Inject
     NavigationManager navigationManager;
 
+    @Inject
+    ApplicationDataRepository applicationDataRepository;
+
     private MutableLiveData<String> mSearchHistory;
 
     public HomeViewModel() {
@@ -44,11 +47,11 @@ public class HomeViewModel extends ViewModel implements OnCallListener {
     }
 
     public void fetchUserSearchHistory() {
-        ApplicationDataRepository.getUserSearchHistory(this);
+        applicationDataRepository.getUserSearchHistory(this);
     }
 
     public void updateUserSearchHistory(final String searchHistory) {
-        ApplicationDataRepository.updateUserSearchHistory(searchHistory);
+        applicationDataRepository.updateUserSearchHistory(searchHistory);
     }
 
     public String getSearchQuery() {

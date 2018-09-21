@@ -10,33 +10,24 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-
-import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.di.Injection;
-
+import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.feature.search.event_list.EventActions;
 import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 import com.prokarma.reference.architecture.networking.ApplicationDataRepository;
 import com.prokarma.reference.architecture.networking.OnCallListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
-
-import androidx.navigation.Navigation;
-
-
 import javax.inject.Inject;
 
-
+import androidx.navigation.Navigation;
 interface EventListener extends EventActions {
     /*
      * Extend with custom filters
      */
 }
-
 
 /**
  * View model in charge of {@link Event} handling.
