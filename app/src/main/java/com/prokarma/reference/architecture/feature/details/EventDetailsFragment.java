@@ -16,14 +16,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.databinding.FragmentDetailsBinding;
-import com.prokarma.reference.architecture.databinding.FragmentListBinding;
-import com.prokarma.reference.architecture.feature.search.list.ListViewModel;
 import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.Location;
+import com.prokarma.reference.architecture.model.WeatherReport;
 
 public class EventDetailsFragment extends Fragment {
     private FragmentDetailsBinding mBinding;
@@ -46,6 +44,11 @@ public class EventDetailsFragment extends Fragment {
 
         mDetailsViewModel.getEvent().observe(this, (Event event) -> {
             mBinding.setEvent(event);
+        });
+
+        mDetailsViewModel.getWeatherReport().observe(this, (WeatherReport report) -> {
+            //Shows weather report
+            mBinding.setReport(report);
         });
 
         Event event = getArguments() != null ? (Event)getArguments().getSerializable("event") : null;

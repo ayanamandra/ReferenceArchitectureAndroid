@@ -18,10 +18,8 @@ import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 import com.prokarma.reference.architecture.networking.ApplicationDataRepository;
 import com.prokarma.reference.architecture.networking.OnCallListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
 
 import androidx.navigation.Navigation;
@@ -30,8 +28,6 @@ interface EventListener extends EventActions {
      * Extend with custom filters
      */
 }
-
-
 
 /**
  * View model in charge of {@link Event} handling.
