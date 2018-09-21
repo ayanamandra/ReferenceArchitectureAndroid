@@ -89,6 +89,7 @@ public class DetailsViewModel extends ViewModel implements OnMapReadyCallback, O
 
     @Override
     public void onCallFailed(Throwable throwable) {
+        getWeatherReport().setValue(null);
     }
 
     @Override

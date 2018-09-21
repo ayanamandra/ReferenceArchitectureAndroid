@@ -9,12 +9,15 @@ import com.prokarma.reference.architecture.di.AppModule;
 import com.prokarma.reference.architecture.di.Injection;
 import com.prokarma.reference.architecture.di.TestModule;
 import com.prokarma.reference.architecture.feature.search.list.ListViewModel;
+import com.prokarma.reference.architecture.model.Dates;
 import com.prokarma.reference.architecture.model.Embedded;
 import com.prokarma.reference.architecture.model.EmbeddedEvents;
 import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.Location;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
+import com.prokarma.reference.architecture.model.StartDate;
 import com.prokarma.reference.architecture.model.Venue;
+import com.prokarma.reference.architecture.model.WeatherReport;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -82,11 +85,42 @@ public class DetailsViewModelTest {
         venues.add(venue1);
         actualEvent.embedded.venues = venues;
 
+        actualEvent.dates = new Dates();
+        actualEvent.dates.start = new StartDate();
+        actualEvent.dates.start.localDate = "2018-12-29";
+        actualEvent.dates.start.localTime = "19:30:00";
+        actualEvent.dates.start.dateTime = "2018-12-30T00:30:00Z";
 
         detailsViewModel.setEventData(actualEvent);
         Assert.assertSame("event assigned correctly", actualEvent, detailsViewModel.getEvent().getValue());
+    }
 
+    @Test
+    public void onCallCompletedWithNullWeatherResponse() {
+        detailsViewModel.getWeatherReport().setValue(null);
+        Object object = null;
+        detailsViewModel.onCallCompleted(object);
+        Assert.assertNull(detailsViewModel.getWeatherReport().getValue());
+    }
 
+    @Test
+    public void onCallCompletedWithEmbeddedNullWeatherResponse() {
+        List<WeatherReport> reports = new ArrayList<>();
+        detailsViewModel.onCallCompleted(reports);
+        Assert.assertNotNull(detailsViewModel.getWeatherReport());
+    }
+
+    @Test
+    public void onCallCompletedWithNoWeatherResponse() {
+        List<WeatherReport> reports = new ArrayList<>();
+        detailsViewModel.onCallCompleted(reports);
+        Assert.assertNotNull(detailsViewModel.getWeatherReport());
+    }
+
+    @Test
+    public void onCallFailed() {
+        detailsViewModel.onCallFailed(throwable);
+        Assert.assertNotNull(detailsViewModel.getWeatherReport());
     }
 
 
