@@ -3,7 +3,9 @@ package com.prokarma.reference.architecture.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Classification {
+import java.io.Serializable;
+
+public class Classification implements Serializable {
     @SerializedName("primary")
     @Expose
     public Boolean primary;
