@@ -20,6 +20,6 @@ public class ReferenceApplication extends Application {
         // and that method initializes the service if null (first call)
         //TicketMasterManager.getInstance().getRetroFitService();
 
-        sharedPreferencesManager.initializeSharedPreferences(this);
+        SharedPreferencesManager.getInstance().initializeSharedPreferences(this);
     }
 }
