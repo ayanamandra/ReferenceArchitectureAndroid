@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.prokarma.reference.architecture.di.Injection;
 import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.feature.search.event_list.EventActions;
 import com.prokarma.reference.architecture.model.Embedded;
@@ -17,12 +18,16 @@ import com.prokarma.reference.architecture.model.Event;
 import com.prokarma.reference.architecture.model.SearchEventsResponse;
 import com.prokarma.reference.architecture.networking.ApplicationDataRepository;
 import com.prokarma.reference.architecture.networking.OnCallListener;
-
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 
 import androidx.navigation.Navigation;
-
+interface EventListener extends EventActions {
+    /*
+     * Extend with custom filters
+     */
+}
 
 /**
  * View model in charge of {@link Event} handling.
@@ -30,12 +35,11 @@ import androidx.navigation.Navigation;
 public class ListViewModel extends ViewModel implements EventListener, OnCallListener {
     private MutableLiveData<List<Event>> mEventsListLiveData;
 
+    @Inject
+    ApplicationDataRepository applicationDataRepository;
+
     public ListViewModel() {
-
-    }
-
-    public void fetchEvents(String keyword) {
-        ApplicationDataRepository.getSearchEventsNoRxJava(this, keyword);
+        Injection.create().getAppComponent().inject(this);
     }
 
     @BindingAdapter({"bind:imageUrl"})
@@ -47,6 +51,18 @@ public class ListViewModel extends ViewModel implements EventListener, OnCallLis
                 .load(imageUrl)
                 .apply(options)
                 .into(view);
+    }
+
+    public MutableLiveData<List<Event>> getmEventsListLiveData() {
+        return mEventsListLiveData;
+    }
+
+    public void setmEventsListLiveData(MutableLiveData<List<Event>> mEventsListLiveData) {
+        this.mEventsListLiveData = mEventsListLiveData;
+    }
+
+    public void fetchEvents(String keyword) {
+        applicationDataRepository.getSearchEventsNoRxJava(this, keyword);
     }
 
     @Override
@@ -64,7 +80,7 @@ public class ListViewModel extends ViewModel implements EventListener, OnCallLis
             Log.d("ListViewModel", "Call Completed " + model);
             Embedded embedded = ((SearchEventsResponse) model).getEmbedded();
 
-            if (embedded != null) {
+            if (embedded != null && embedded.getEvents() != null) {
                 List<Event> eventList = embedded.getEvents();
                 getEvents().postValue(eventList);
             } else {
@@ -80,7 +96,7 @@ public class ListViewModel extends ViewModel implements EventListener, OnCallLis
 
     @Override
     public void onCallFailed(Throwable throwable) {
-        Log.e("ListViewModel", "Call Failed " + throwable);
+//        Log.e("ListViewModel", "Call Failed " + throwable);
         getEvents().postValue(new ArrayList<>());
     }
 
@@ -92,10 +108,4 @@ public class ListViewModel extends ViewModel implements EventListener, OnCallLis
         }
         return mEventsListLiveData;
     }
-}
-
-interface EventListener extends EventActions {
-    /*
-     * Extend with custom filters
-     */
 }

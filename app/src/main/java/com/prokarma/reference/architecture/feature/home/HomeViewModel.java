@@ -2,17 +2,14 @@ package com.prokarma.reference.architecture.feature.home;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-
 import com.prokarma.reference.architecture.R;
 import com.prokarma.reference.architecture.app.NavigationManager;
+import com.prokarma.reference.architecture.di.Injection;
 import com.prokarma.reference.architecture.networking.ApplicationDataRepository;
 import com.prokarma.reference.architecture.networking.OnCallListener;
-
-import androidx.navigation.Navigation;
+import javax.inject.Inject;
 
 /**
  * A view model for search related support.
@@ -23,9 +20,16 @@ public class HomeViewModel extends ViewModel implements OnCallListener {
     private String mSearchQuery;
     private String mSearchKeyword;
 
+    @Inject
+    NavigationManager navigationManager;
+
+    @Inject
+    ApplicationDataRepository applicationDataRepository;
+
     private MutableLiveData<String> mSearchHistory;
 
     public HomeViewModel() {
+        Injection.create().getAppComponent().inject(this);
         mSearchQuery = "";
         mSearchKeyword = "";
     }
@@ -39,15 +43,15 @@ public class HomeViewModel extends ViewModel implements OnCallListener {
         Bundle bundle = new Bundle();
         bundle.putString("keyword", mSearchKeyword);
         updateUserSearchHistory(mSearchKeyword);
-        NavigationManager.getInstance().getNavController().navigate(R.id.action_home_to_list, bundle);
+        navigationManager.getNavController().navigate(R.id.action_home_to_list, bundle);
     }
 
     public void fetchUserSearchHistory() {
-        ApplicationDataRepository.getUserSearchHistory(this);
+        applicationDataRepository.getUserSearchHistory(this);
     }
 
     public void updateUserSearchHistory(final String searchHistory) {
-        ApplicationDataRepository.updateUserSearchHistory(searchHistory);
+        applicationDataRepository.updateUserSearchHistory(searchHistory);
     }
 
     public String getSearchQuery() {
